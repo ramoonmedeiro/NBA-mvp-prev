@@ -131,15 +131,14 @@ Olhando a Figura acima nota-se que o atributo posição é substancial, 31 jogad
 
 # Etapa de Machine Learning
 
-Os dados extraídos não constam com todos os anos em que houve premiação da NBA, pois, no site da NBA existem dados oficiais a partir da temporada 1996-1997, logo, foi possível extrair dados das últimas 26 temporadas, portanto, o dataset criado não possui muitos dados e o mesmo está desbalanceado, mas isso será tratado mais adiante. A ideia por trás da extração e preparação dos dados é em virtude do MVP da temporada regular estar entre os 10 maiores cestinha da temporada, com exceção para Steve Nash em 2005 e 2006, Dirk Nowtzki em 2007 e Nikola Jokic em 2021. Ou seja, das últimas 26 vezes que o prêmio de MVP foi dado a um atleta, apenas 4 destes não estavam entre os 10 primeiros cestinhas da temporada regular, logo, achei relevante usar este fato como ponto central da minha modelagem.
+Os dados extraídos não constam com todos os anos em que houve premiação da NBA, pois, no site da NBA existem dados oficiais a partir da temporada 1996-1997, logo, foi possível extrair dados das últimas 26 temporadas, portanto, o dataset criado não possui muitos dados e o mesmo está desbalanceado, mas isso será tratado mais adiante. A ideia por trás da extração e preparação dos dados é em virtude do MVP da temporada regular estar entre os 50 maiores cestinha da temporada, com exceção para Steve Nash em 2005. Ou seja, das últimas 26 vezes que o prêmio de MVP foi dado a um atleta, apenas um destes não estavam entre os 50 maiores cestinhas da temporada regular, logo, achei relevante usar este fato como ponto central da minha modelagem.
 
 Abaixo estão os passos para carregamento do dataset e separação das features:
 ```
 # Carregando os datasets
-$ df_mvps = pd.read_csv('./datasets/mvps.csv')
-$ df_full = pd.read_csv('./datasets/stats-full.csv')
-$ X = df_full.iloc[:, 2:11]
-$ y = df_full['MVP']
+$ df = pd.read_csv('./datasets/stats-full.csv')
+$ X = df.iloc[:, 2:11]
+$ y = df['MVP']
 ```
 
 Os atributos selecionados para a realização da predição foram: AGE, GP, MIN, PTS, AST, REB, FG%, 3P% e FT%, onde:
