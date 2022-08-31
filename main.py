@@ -1,13 +1,13 @@
 import nbastats
 
 # Pega as tabelas do site oficial da nba
-#nbastats.all_time()
+nbastats.all_time()
 
 # Pega a tabela de mvps da temporada regular do site oficial da ESPN
 nbastats.mvps()
 
-# Insere o jogador Steve Nash no top 10 para os anos 2004-2006, Jokic no ano de 2020-2021 e Nowitzki em 2007
-#nbastats.add_players()
+# Insere o jogador Steve Nash no top 10 para o ano de 2005
+nbastats.add_steve_nash()
 
 # Adicionando uma coluna de MVP para resultado final
 nbastats.add_mvp_param()

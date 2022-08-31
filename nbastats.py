@@ -83,33 +83,15 @@ def mvps():
 
     return
 
-#def add_players():
+def add_steve_nash():
 
-	# Inserindo Steve Nash no TOP 10 na temporada de 2004-05
-#	df = pd.read_csv('./2004-05.csv')
-#	df.drop(9)
-#	df.loc[9]=['Steve Nash', 'PHX', 31, 75, 34.3, 15.5, 11.5, 3.3, 50.2, 43.1, 88.7, 2005]
-#	df.to_csv('./2004-05.csv', index=False)
+	#Inserindo Steve Nash no TOP 10 na temporada de 2004-05
+	df = pd.read_csv('./2004-05.csv')
+	df.drop(49)
+	df.loc[49]=['Steve Nash', 'PHX', 31, 75, 34.3, 15.5, 11.5, 3.3, 50.2, 43.1, 88.7, 2005]
+	df.to_csv('./2004-05.csv', index=False)
 
-	# Inserindo Steve Nash no TOP 10 na temporada de 2005-06
-#	df = pd.read_csv('./2005-06.csv')
-#	df.drop(9)
-#	df.loc[9]=['Steve Nash', 'PHX', 32, 79, 35.4, 18.8, 10.5, 4.2, 51.2, 43.9, 92.1, 2006]
-#	df.to_csv('./2005-06.csv', index=False)
-
-	# Inserindo Steve Nash no TOP 10 na temporada de 2005-06
-#	df = pd.read_csv('./2006-07.csv')
-#	df.drop(9)
-#	df.loc[9]=['Dirk Nowitzki', 'DAL', 29, 78, 36.2, 24.6, 3.4, 8.9, 50.2, 41.6, 90.4, 2007]
-#	df.to_csv('./2006-07.csv', index=False)
-
-	# Inserindo Nikola Jokic no TOP 10 na temporada de 2020-21
-#	df = pd.read_csv('./2020-21.csv')
-#	df.drop(9)
-#	df.loc[9]=['Nikola Jokic', 'DEN', 26, 72, 34.6, 26.4, 8.3, 10.8, 56.6, 38.8, 86.8, 2021]
-#	df.to_csv('./2020-21.csv', index=False)
-
-#	return
+	return
 
 def add_mvp_param():
 
