@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from webdriver_manager.firefox import GeckoDriverManager
@@ -193,7 +194,7 @@ def old_mvps():
 	df_old.insert(9, 'FT%', ft)
 	df_old.insert(10, 'YEAR', ano)
 
-	df.to_csv(f'./datasets/old.csv', index=False)
+	df_old.to_csv(f'./datasets/old.csv', index=False)
 
 def concat_old_new():
 
