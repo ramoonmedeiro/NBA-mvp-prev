@@ -32,7 +32,7 @@ def all_time():
 
 	    df = pd.read_html(str(table))[0]
 	    del df['Unnamed: 0']
-	    df_full = df[['PLAYER', 'TEAM', 'AGE', 'GP', 'MIN', 'PTS', 'AST', 'REB', 'FG%', '3P%', 'FT%']].head(20).copy()
+	    df_full = df[['PLAYER', 'TEAM', 'AGE', 'GP', 'MIN', 'PTS', 'AST', 'REB', 'FG%', '3P%', 'FT%']].head(15).copy()
 	    df_full['YEAR'] = year
 	    df_full.to_csv(f'{season}.csv', index=False)
 	    year -= 1
@@ -89,13 +89,13 @@ def add_steve_nash():
 
 	#Inserindo Steve Nash no TOP 10 na temporada de 2004-05 e 2005-06
 	df = pd.read_csv('./2004-05.csv')
-	df.drop(19)
-	df.loc[19]=['Steve Nash', 'PHX', 31, 75, 34.3, 15.5, 11.5, 3.3, 50.2, 43.1, 88.7, 2005]
+	df.drop(14)
+	df.loc[14]=['Steve Nash', 'PHX', 31, 75, 34.3, 15.5, 11.5, 3.3, 50.2, 43.1, 88.7, 2005]
 	df.to_csv('./2004-05.csv', index=False)
 
 	df = pd.read_csv('./2005-06.csv')
-	df.drop(19)
-	df.loc[19]=['Steve Nash', 'PHX', 32, 79, 35.4, 18.8, 10.5, 4.2, 51.2, 43.9, 92.1, 2006]
+	df.drop(14)
+	df.loc[14]=['Steve Nash', 'PHX', 32, 79, 35.4, 18.8, 10.5, 4.2, 51.2, 43.9, 92.1, 2006]
 	df.to_csv('./2005-06.csv', index=False)
 
 	return
