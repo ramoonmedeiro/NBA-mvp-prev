@@ -21,7 +21,7 @@ utilizando o Scikit-Learn.
 
 Para compreender quais features podem ser determinantes para obter resultados ótimo nos algoritmos, é realizada uma análise dos dados.
 
-Uma possível feature que pode ser importante para inserir no algoritmo são, os times que os jogadores jogam, com isso, vamos analisar os times com mais MVPs da temporada regular na história da NBA. Os times com mais jogadores vencedores do prêmio de MVP é a franquia do Boston Celtics. A Figura abaixo mostra as cinco franquias com mais vencedores do prêmio.
+Uma possível feature que pode ser importante para inserir no algoritmo é, os times que os jogadores jogam, com isso, vamos analisar os times com mais MVPs da temporada regular na história da NBA. Os times com mais jogadores vencedores do prêmio de MVP é a franquia do Boston Celtics. A Figura abaixo mostra as cinco franquias com mais vencedores do prêmio.
 
 <div align="center">
   <img src="https://user-images.githubusercontent.com/102380417/184778671-4e6a71a6-3482-42f0-9f14-a6d3ccee16bf.png" width="450px" />
@@ -131,17 +131,9 @@ Olhando a Figura acima nota-se que o atributo posição é substancial, 31 jogad
 
 # Etapa de Machine Learning
 
-Os dados extraídos não constam com todos os anos em que houve premiação da NBA, pois, no site da NBA existem dados oficiais a partir da temporada 1996-1997, logo, foi possível extrair dados das últimas 26 temporadas, portanto, o dataset criado não possui muitos dados e o mesmo está desbalanceado, mas isso será tratado mais adiante. A ideia por trás da extração e preparação dos dados é em virtude do MVP da temporada regular estar entre os 50 maiores cestinha da temporada, com exceção para Steve Nash em 2005. Ou seja, das últimas 26 vezes que o prêmio de MVP foi dado a um atleta, apenas um destes não estavam entre os 50 maiores cestinhas da temporada regular, logo, achei relevante usar este fato como ponto central da minha modelagem.
+Os dados extraídos não constam com todos os anos em que houve premiação da NBA, pois, no site da NBA existem dados oficiais a partir da temporada 1996-1997, logo, foi possível extrair dados das últimas 26 temporadas, portanto, o dataset criado não possui muitos dados e o mesmo está desbalanceado, mas isso será tratado mais adiante. A ideia por trás da extração e preparação dos dados é em virtude do MVP da temporada regular estar entre os 15 maiores cestinha da temporada, com exceção para Steve Nash em 2005 e 2006. Ou seja, das últimas 26 vezes que o prêmio de MVP foi dado a um atleta, apenas dois destes não estavam entre os 15 maiores pontuadores da temporada regular, logo, achei relevante usar este fato como ponto central da minha modelagem.
 
-Abaixo estão os passos para carregamento do dataset e separação das features:
-```
-# Carregando os datasets
-$ df = pd.read_csv('./datasets/stats-full.csv')
-$ X = df.iloc[:, 2:11]
-$ y = df['MVP']
-```
-
-Os atributos selecionados para a realização da predição foram: AGE, GP, MIN, PTS, AST, REB, FG%, 3P% e FT%, onde:
+Os atributos selecionados para a realização da predição foram: AGE, GP, MIN, PTS, AST, REB, FG% e FT%, onde:
 	
 	- AGE : Idade do jogador.
 	- GP  : Jogos que o jogador participou na temporada.
@@ -150,6 +142,50 @@ Os atributos selecionados para a realização da predição foram: AGE, GP, MIN,
 	- AST : Média de assistência por jogo.
 	- REB : Média de rebotes por jogo.
 	- FG% : Percentual de arremessos convertidos.
-	- 3P% : Percentual de arremessos na linha de 3 convertidos.
 	- FT% : Percentual de lances livres convertidos.
 
+O atributo 3P% foi retirado do processo, pois para MVPs mais antigos, não existem dados oficiais desta característica.
+
+Abaixo estão os passos para carregamento do dataset e separação das features:
+```
+# Carregando os datasets
+import pandas as pd
+
+df = pd.read_csv('./datasets/stats-full.csv')
+X = df.drop(['PLAYER', 'TEAM', '3P%', 'YEAR', 'MVP'], axis = 1)
+y = df['MVP']
+```
+como dito mais acima, o dataset criado não é balanceado, possuindo mais instâncias da classe negativa para MVP (0) do que para a classe positiva pra MVP (1). Abaixo pode-se observar a porcentagem de cada classe e graficamente como as quantidade das classes 0 e 1 são distantes.
+
+```
+df['MVP'].value_counts(normalize=True)*100
+
+0    84.454756
+1    15.545244
+Name: MVP, dtype: float
+```
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/102380417/190220487-e5a03ab0-476c-4477-b4c0-bb7926bcae4f.png" width="450px" />
+</div>
+
+
+Para tratar de tal empecilho, realizei seleção de features, uso do parâmetro class_weight para penalização do modelo, porém, nenhum forneceu melhores resultados do que o modelo base. Com este fato, recorri ao oversampling com SMOTE, onde iguala-se a quantidade de instâncias da classe minoritária (1)
+com a da classe majoritária (0) por meio da sintetização dos dados, são dados novos criados a partir de outros. A desvantagem de utilizar este método é a justamente os dados criados serem sintéticos, não são dados nativos da história da NBA, o que pode causar um viés nos resultados. Já a vantagem é que agora possímos um dataset totalmente balanceado. Nas Figuras seguintes, observa-se a ação do oversampling no dataset deste projeto:
+
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/102380417/190220776-d1865d4e-43b8-4e20-82ac-2bd40e513dba.png" width="450px" />
+</div>
+
+A métrica utilizada neste projeto é a acurácia, já que os dados serão balanceados, porém, com foco também no recall, já que minimizar os falsos negativos (FN) é mais importante do que os falsos postivos (FP).
+
+# Separação entre treino e teste
+
+A utilização do SMOTE será apenas depois de observarmos qual modelo será o melhor baseline. É realizada a separação do dataset em treino e teste utilizando a função train_test_split. Usei 33 % para o tamanho da base de testes, já que o dataset não é grande.
+
+```
+from sklearn.model_selection import train_test_split
+
+X_treino, X_teste, y_treino, y_teste = train_test_split(X, y, test_size=0.33, random_state=99, stratify=y)
+```
