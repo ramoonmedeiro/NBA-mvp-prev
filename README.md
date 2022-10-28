@@ -131,12 +131,12 @@ Olhando a Figura acima nota-se que o atributo posição é substancial, 31 jogad
 
 # Etapa de Machine Learning
 
-Os dados extraídos não constam com todos os anos em que houve premiação da NBA, pois, no site da NBA existem dados oficiais a partir da temporada 1996-1997, logo, foi possível extrair dados das últimas 26 temporadas, portanto, o dataset criado não possui muitos dados e o mesmo está desbalanceado, mas isso será tratado mais adiante. A ideia por trás da extração e preparação dos dados é em virtude do MVP da temporada regular estar entre os 15 maiores cestinha da temporada, com exceção para Steve Nash em 2005 e 2006. Ou seja, das últimas 26 vezes que o prêmio de MVP foi dado a um atleta, apenas dois destes não estavam entre os 15 maiores pontuadores da temporada regular, logo, achei relevante usar este fato como ponto central da minha modelagem.
+Os dados extraídos não constam com todos os anos em que houve premiação da NBA, pois, no site da NBA existem dados oficiais a partir da temporada 1996-1997, logo, foi possível extrair dados das últimas 26 temporadas, portanto, o dataset criado não possui muitos dados e o mesmo está desbalanceado. A ideia por trás da extração e preparação dos dados é em virtude do MVP da temporada regular estar entre os 15 maiores cestinha da temporada, com exceção para Steve Nash em 2005 e 2006. Ou seja, das últimas 26 vezes que o prêmio de MVP foi dado a um atleta, apenas dois destes não estavam entre os 15 maiores pontuadores da temporada regular, logo, achei relevante usar este fato como ponto central da minha modelagem. 
 
-Os atributos selecionados para a realização da predição foram: AGE, GP, MIN, PTS, AST, REB, FG% e FT%, onde:
-	
-	- AGE : Idade do jogador.
-	- GP  : Jogos que o jogador participou na temporada.
+A métrica utilizada para este problema é o recall, já que estou dando mais importância para o falsos negativos (FN).
+
+Os atributos selecionados para a realização da predição foram: MIN, PTS, AST, REB, FG% e FT%, onde:
+
 	- MIN : Minutos em quadra.
 	- PTS : Média de pontos por jogo.
 	- AST : Média de assistência por jogo.
@@ -146,190 +146,30 @@ Os atributos selecionados para a realização da predição foram: AGE, GP, MIN,
 
 O atributo 3P% foi retirado do processo, pois para MVPs mais antigos, não existem dados oficiais desta característica.
 
-Abaixo estão os passos para carregamento do dataset e separação das features:
-```
-# Carregando os datasets
-import pandas as pd
-import numpy as np
+Já foi realizada a primeira troca de modelo, o modelo anterior estava com a técnica SMOTE para tratar dos dados desbalanceados. Tal técnica hoje em dia está se mostrando mais não efetivo do que sim, logo, treinei outros modelos para poder tratar o desbalanceamento de outras formas.
 
-df = pd.read_csv('./datasets/stats-full.csv')
-X = df.drop(['PLAYER', 'TEAM', '3P%', 'YEAR', 'MVP'], axis = 1)
-y = df['MVP']
-```
-como dito mais acima, o dataset criado não é balanceado, possuindo mais instâncias da classe negativa para MVP (0) do que para a classe positiva pra MVP (1). Abaixo pode-se observar a porcentagem de cada classe e graficamente como as quantidade das classes 0 e 1 são distantes.
+O modelo em questão foi treinando com diversas técnicas, com padronização ou normalização dos dados, com seleção de features, com redução de dimensionalidade, fazendo o logarítmo das características e por fim, foi realizada a potenciação de grau 2 e 3 das caracterísitcas. Ao final do processo, o modelo com melhor recall após a validação cruzada foi:
 
 ```
-df['MVP'].value_counts(normalize=True)*100
-
-0    84.454756
-1    15.545244
-Name: MVP, dtype: float
+pipe = Pipeline(steps=[
+	('scaler', StandardScaler()),
+	('clf', LogisticRegression(class_weight="balanced"))
+]
 ```
 
-<div align="center">
-  <img src="https://user-images.githubusercontent.com/102380417/190220487-e5a03ab0-476c-4477-b4c0-bb7926bcae4f.png" width="450px" />
-</div>
+Acima está o pipeline do melhor classificador e mudanças das características. A regressão logísitica com penalização nas classes negativas (majoritárias) com a padronização foi o que forneceu o melhor resultado. Reduzir a dimensionalidade e a realização da seleção de features, forneceram resultados piores do que o modelo acima.
 
+Após obter o melhor modelo, foi realizado a otimização dos parâmetros com o grid search, o valor do recall não mudou muito, mas houve uma sutil melhora.
 
-Para tratar de tal empecilho, realizei seleção de features, uso do parâmetro class_weight para penalização do modelo, porém, nenhum forneceu melhores resultados do que o modelo base. Com este fato, recorri ao oversampling com SMOTE, onde iguala-se a quantidade de instâncias da classe minoritária (1)
-com a da classe majoritária (0) por meio da sintetização dos dados, são dados novos criados a partir de outros. A desvantagem de utilizar este método é a justamente os dados criados serem sintéticos, não são dados nativos da história da NBA, o que pode causar um viés nos resultados. Já a vantagem é que agora possímos um dataset totalmente balanceado. Nas Figuras seguintes, observa-se a ação do oversampling no dataset deste projeto:
-
-
-<div align="center">
-  <img src="https://user-images.githubusercontent.com/102380417/190220776-d1865d4e-43b8-4e20-82ac-2bd40e513dba.png" width="450px" />
-</div>
-
-A métrica utilizada neste projeto é a acurácia, já que os dados serão balanceados, porém, com foco também no recall, já que minimizar os falsos negativos (FN) é mais importante do que minimizar os falsos postivos (FP).
-
-# Bibliotecas necessárias
+O modelo com os melhores hiperparâmetros é o:
 
 ```
-# Carregando modelos
-from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVC
-
-# Carregando kfold e cross_val_score
-from sklearn.model_selection import KFold, cross_val_score
-
-# Carregando pré-processamento
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
-
-# Carreganbdo SMOTE
-from imblearn.over_sampling import SMOTE
-
-# Carregando métricas
-from sklearn.metrics import classification_report, accuracy_score
+pipe_final = Pipeline(steps=[
+	('scaler', StandardScaler()),
+	('clf', LogisticRegression(class_weight="balanced", max_iter=100, C=0.01, solver='liblinear', penalty='l2'))
+]
 ```
-
-# Separação entre treino e teste
-
-É realizada a separação do dataset em treino e teste utilizando a função train_test_split. Usei 33 % para o tamanho da base de testes, já que o dataset não é grande.
-
-```
-from sklearn.model_selection import train_test_split
-
-X_treino, X_teste, y_treino, y_teste = train_test_split(X, y, test_size=0.33, random_state=99, stratify=y)
-```
-
-A validação cruzada foi utilizada para validar o modelo, já que não foi possível separar o conjunto de treino em mais cnjuntos, como o de validação. Um erro muito comum ao usar SMOTE e a validação cruzada é realizar o oversampling no conjunto de treino inteiro para depois realizar a validação cruzada, com isso, a função abaixo foi criada para ultrapassar essa dificuldade, onde o oversampling é realizado apenas nas instâncias de treino e não na validação. 
-
-```
-def validacao_cruzada(modelo, X, y):
-    kfold = KFold(n_splits = 5, shuffle=True, random_state=99)
-    results = []
-
-    for linhas_treino, linhas_valid in kfold.split(X):
-        #Pegando índices
-        X_treino, X_valid = X.iloc[linhas_treino], X.iloc[linhas_valid]
-        y_treino, y_valid = y.iloc[linhas_treino], y.iloc[linhas_valid]
-        
-        # Usando SMOTE apenas no conjunto de treino e não na validação
-        smt = SMOTE(random_state=98)
-        X_treino_smt, y_treino_smt = smt.fit_resample(X_treino, y_treino)
-        
-        # Treinando modelo
-        modelo.fit(X_treino_smt, y_treino_smt)
-        
-        # Prevendo valores para os conjunto de validação e obtendo acurácia
-        prev_valid = modelo.predict(X_valid)
-        results.append(accuracy_score(y_valid, prev_valid))
-    
-    return np.array(results)
-```
-
-
-Os dois modelos que serão testados são : Regressão Logística e SVC. Abaixo são mostrados os valores para o modelo base:
-
-```
-modelos = [LogisticRegression(max_iter=300), SVC(probability=True)]
-
-
-# Sem nada (baseline)
-d = {}
-for modelo in modelos:
-    d[modelo] = validacao_cruzada(modelo, X_treino, y_treino).mean()
-print(d)
-
-
-{LogisticRegression(max_iter=300): 0.853901996370236, SVC(probability=True): 0.8335753176043557}
-```
-
-As duas modificações que foi feita nesta etapa foi a padronização e normalização dos dados com StandardScaler e MinMaxScaler, respectivamente.
-
-```
-# Definindo objetos
-scaler = StandardScaler()
-norm = MinMaxScaler()
-
-# Ajustando e transformando colunas
-X_scaler = scaler.fit_transform(X_treino) 
-X_norm = norm.fit_transform(X_treino)
-
-# Transformando para DataFrame para utilizar na função acima
-scaler_df = pd.DataFrame(X_scaler)
-norm_df = pd.DataFrame(X_norm)
-```
-
-Resultados para os dados padronizados:
-
-```
-# Com padronização
-
-d_scaler = {}
-for modelo in modelos:
-    d_scaler[modelo] = validacao_cruzada(modelo, scaler_df, y_treino).mean()
-print(d_scaler)
-
-
-{LogisticRegression(max_iter=300): 0.8678160919540229, SVC(probability=True): 0.8778175979530289}
-```
-
-Resultados para os dados normalizados:
-
-```
-# Com normalização
-
-d_norm = {}
-for modelo in modelos:
-    d_norm[modelo] = validacao_cruzada(modelo, norm_df, y_treino).mean()
-print(d_norm)
-
-{LogisticRegression(max_iter=300): 0.8295825771324864, SVC(probability=True): 0.8817906836055656}
-```
-
-Nota-se que para os dados padronizados, os valores de acurácia melhoraram para ambos os modelos. Já para os dados normalizados, a acurácia piorou para a regressão logística enquanto para SVC melhorou mais ainda. Observando todos os valores, decide-se que o modelo escolhido foi o SVC com dados normalizados, com acurácia de aproximadamente 90%.
-
-# Conjunto de Teste
-
-Agora que já sabemos o modelo totalmente validado e sem overfitting, é hora de ver como o mesmo irá se comportar ao receber dados totalmente novos do conjunto de teste. 
-
-```
-# Definindo o modelo
-modelo_final = SVC(probability=True)
-
-# Realizando apenas a transformação dos dados de teste
-X_teste_norm = norm.transform(X_teste)
-
-# Prevendo valores
-prev_teste = modelo_final.predict(X_teste_norm)
-
-# Observando o comportamento geral do modelo com os dados de teste
-print(classification_report(y_teste, prev_teste))
-
-
-
-              precision    recall  f1-score   support
-
-           0       0.96      0.88      0.92       121
-           1       0.55      0.82      0.65        22
-
-    accuracy                           0.87       143
-   macro avg       0.75      0.85      0.79       143
-weighted avg       0.90      0.87      0.88       143
-```
-
-A acurácia se manteve em 87%, porém, como dito antes, o foco era no recall. Conseguiu-se um recall alto sem que ncessariamente a precisão fosse muit baixa.
-Portanto, para o presente projeto, esses resultados foram bom o suficiente. Foi realizada a otimzação dos hiperparâmetros com o BayesSearchCV, mas para todos os casos, ocorria o overfitting, então abandonei a ideia e mantive os resultados obtidos acima.
+O valor do recall melhorou de 80.89% para 81.15%.
 
 # Deploy
 
@@ -339,4 +179,3 @@ O deploy foi realizado na plataforma HuggingFace.co, para acessar basta entrar n
 
 O presente projeto segue em observação na fase Beta, além disso, o mesmo será supervisionado para a manutenção com o decorrer do tempo.
 Para entrar em contato para tratar de bugs ou coisas do tipo, mandar email para o seguinte endereço: **r.medeiro10@gmail.com**.
-
