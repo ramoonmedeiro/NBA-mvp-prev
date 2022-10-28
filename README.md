@@ -182,11 +182,10 @@ Esta seção visa comparar os resultados obtidos pelo modelo realizado nesse pro
 A pasta "compare" possui o script que irá realizar o scraping para obter os valores dos 30 melhores pontuadores da nba e classifica-los em um top 10 para fins de comparação.
 
 --------------
-* Semana 1:
+* Mês 1:
 
 ```
-a
-
+Aguardando dados
 ```
 
 
