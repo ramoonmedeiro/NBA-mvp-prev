@@ -8,6 +8,7 @@ from selenium.webdriver.common.by import By
 from time import sleep
 import os
 
+
 def scrape():
 	servico = Service(GeckoDriverManager().install())
 	navegador = webdriver.Firefox(service=servico)
@@ -31,6 +32,26 @@ def scrape():
 
 	return
 
-def results():
-	pass
+def results(modelo):
+	df = pd.read_csv('./prever.csv')
+	names = df['Player']
+	X_prev = df.drop(['Player'], axis=1)
+
+
+	# Realizando a predição
+	pred = modelo.predict_proba(X_prev)
+
+	# guardando valores
+	d = {}
+	for player, proba in zip(names, pred):
+		d[round(proba[1]*100, 2)] = player
+
+	val = sorted(d, reverse=True)
+
+	for i in range(0, 10, 1):
+		print(f'{i+1} - {d[val[i]]}')
+
+	
+
+	return
 	
