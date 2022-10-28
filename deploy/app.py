@@ -4,6 +4,7 @@ import joblib
 from sklearn.preprocessing import MinMaxScaler
 
 def previsao(GP, MIN, PTS, AST, REB, FG, FT):
+	print('TESTE')
 	model = joblib.load('modelo.pkl')
 	X_treino = joblib.load('X_treino.pkl')
 
