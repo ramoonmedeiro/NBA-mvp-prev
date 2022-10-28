@@ -5,17 +5,11 @@ from sklearn.preprocessing import StandardScaler
 
 def previsao(MIN, PTS, AST, REB, FG, FT):
 	model = joblib.load('modelo-versao2.pkl')
-	#X_treino = joblib.load('X_treino.pkl')
 
-# Normalizando variáveis
-	#norm = MinMaxScaler()
-	#norm.fit(X_treino)
+	val = np.array([MIN, PTS, AST, REB, FG, FT]).reshape(1,-1)
+	prev = model.predict_proba(val)
 
-	#val = np.array([GP, MIN, PTS, AST, REB, FG, FT]).reshape(1,-1)
-	#X_val_norm = norm.transform(val)
-	prev = model.predict_proba(X_val)
-
-	return {"MVP%": prev[0][1]}
+	return {"Chances de ser MVP": prev[0][1]}
 
 demo = gr.Interface(fn=previsao,
 					inputs=["number",
