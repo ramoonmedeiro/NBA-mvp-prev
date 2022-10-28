@@ -169,7 +169,7 @@ pipe_final = Pipeline(steps=[
 	('clf', LogisticRegression(class_weight="balanced", max_iter=100, C=0.01, solver='liblinear', penalty='l2'))
 ]
 ```
-O valor do recall melhorou de 80.89% para 81.15%.
+O valor do recall melhorou de 80.89% para 81.15%, com precição de 42%.
 
 # Deploy
 
