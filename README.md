@@ -175,6 +175,21 @@ O valor do recall melhorou de 80.89% para 81.15%, com precição de 42%.
 
 O deploy foi realizado na plataforma HuggingFace.co, para acessar basta entrar no link ao lado https://huggingface.co/spaces/ramonmedeiro1/NBA-MVP-PREDICTOR. Para montar a parte de design do aplicativo web, o gradio foi utilizado. A pasta deploy possui o que é necessário para deploy do projeto.
 
+# Resultados
+
+Esta seção visa comparar os resultados obtidos pelo modelo realizado nesse projeto e resultados liberados pela comunidade e pela própria NBA para o ranking de jogadores que estão disputando para MVP.
+
+A pasta "compare" possui o script que irá realizar o scraping para obter os valores dos 30 melhores pontuadores da nba e classifica-los em um top 10 para fins de comparação.
+
+--------------
+* Semana 1:
+
+```
+a
+
+```
+
+
 # Considerações finais
 
 O presente projeto segue em observação na fase Beta, além disso, o mesmo será supervisionado para a manutenção com o decorrer do tempo.
