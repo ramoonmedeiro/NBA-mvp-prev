@@ -13,9 +13,8 @@ def all_time():
     servico = Service(GeckoDriverManager().install())
     navegador = webdriver.Firefox(service=servico)
 
-
     siglas_old = ['SEA', 'NJN', 'VAN', 'NOH', 'CHA']
-	siglas_new = ['OKC', 'BKN', 'MEM', 'NOP', 'CHH']
+    siglas_new = ['OKC', 'BKN', 'MEM', 'NOP', 'CHH']
 
     year = 2022
     seasons = ['2021-22', '2020-21', '2019-20', '2018-19', '2017-18', '2016-17', '2015-16', '2014-15', '2013-14',
@@ -27,7 +26,7 @@ def all_time():
 	    url = f'https://www.nba.com/stats/players/traditional/?sort=PTS&dir=-1&Season={season}&SeasonType=Regular%20Season'	
 	    navegador.get(url)
 	    sleep(7)
-	    element = navegador.find_element(By.XPATH, "//div[@class='nba-stat-table']")
+	    element = navegador.find_element(By.XPATH, "//div[@class='Crom_container__C45Ti']")
 	    html = element.get_attribute('outerHTML')
 	    bs = BeautifulSoup(html, 'html.parser')
 	    table = bs.find(name='table')
@@ -36,10 +35,10 @@ def all_time():
     	
 	    df = pd.read_html(str(table))[0]
 	    del df['Unnamed: 0']
-	    df_full = df[['PLAYER', 'TEAM', 'AGE', 'GP', 'MIN', 'PTS', 'AST', 'REB', 'FG%', '3P%', 'FT%']].head(15).copy()
+	    df_full = df[['Player', 'Team', 'Age', 'GP', 'Min', 'PTS', 'AST', 'REB', 'FG%', '3P%', 'FT%']].head(15).copy()
 	    df_full['YEAR'] = year
 	    # Mudando sigças antigas por novas (atuais)
-	    df['TEAM'] = df['TEAM'].replace(siglas_old, siglas_new)
+	    df_full['Team'] = df_full['Team'].replace(siglas_old, siglas_new)
 	    # Salvando dados
 	    df_full.to_csv(f'{season}.csv', index=False)
 	    year -= 1
@@ -160,12 +159,12 @@ def add_mvp_param():
           	   '2012-13', '2011-12', '2010-11', '2009-10', '2008-09', '2007-08', '2006-07', '2005-06', '2004-05',
           	   '2003-04', '2002-03', '2001-02', '2000-01', '1999-00', '1998-99', '1997-98', '1996-97']
 
-	df_mvps = pd.read_csv('./datasets/mvps.csv')
+	df_mvps = pd.read_csv('../datasets/mvps.csv')
 	df_copy_mvps = df_mvps.loc[0:25].copy()
 	mvps = list(df_copy_mvps['PLAYER'])
 	for i in range(len(mvps)):
 	    df = pd.read_csv(f'./{seasons[i]}.csv')
-	    df['MVP'] = df['PLAYER'].apply(lambda linha: 1 if linha == mvps[i] else 0)
+	    df['MVP'] = df['Player'].apply(lambda linha: 1 if linha == mvps[i] else 0)
 	    df.to_csv(f'./{seasons[i]}.csv', index=False)
 
 	return 
@@ -206,7 +205,7 @@ def concat_players():
            df16, df15, df14, df13, df12, df11, df10, df9, df8, df7, 
            df6, df5, df4, df3, df2, df1], ignore_index=True)
 
-	df.to_csv(f'./datasets/stats-full.csv', index=False)
+	df.to_csv(f'../datasets/stats-full.csv', index=False)
 
 	# Apagando todos as tabelas
 	os.system('rm 19* 20*')
@@ -245,13 +244,13 @@ def concat_wins_seasons():
            df16, df15, df14, df13, df12, df11, df10, df9, df8, df7, 
            df6, df5, df4, df3, df2, df1], ignore_index=True)
 
-	df.to_csv(f'./datasets/wins-seasons.csv', index=False)
+	df.to_csv(f'../datasets/wins-seasons.csv', index=False)
 
 	# Apagando todos as tabelas
 	os.system('rm wins*')
 
 def old_mvps():
-	df_mvps = pd.read_csv('./datasets/mvps.csv')
+	df_mvps = pd.read_csv('../datasets/mvps.csv')
 	df_old = df_mvps.loc[26:].copy()
 
 # Inserindos valores NaN
@@ -289,13 +288,13 @@ def old_mvps():
 	df_old.insert(10, 'W%', wins)
 	df_old.insert(11, 'YEAR', ano)
 
-	df_old.to_csv(f'./datasets/old.csv', index=False)
+	df_old.to_csv(f'../datasets/old.csv', index=False)
 
 def concat_old_new():
 
 	# Carregando os dados
-	df_old = pd.read_csv('./datasets/old.csv')
-	df_new = pd.read_csv('./datasets/stats-full.csv')
+	df_old = pd.read_csv('../datasets/old.csv')
+	df_new = pd.read_csv('../datasets/stats-full.csv')
 
 	# Excluindo coluna que não é necessária neste primeiro momento
 	df_new.drop('AGE', axis=1, inplace = True)
@@ -304,4 +303,4 @@ def concat_old_new():
 	df_final = pd.concat([df_new, df_old], ignore_index=True)
 
 	# Tabela final
-	df_final.to_csv(f'./datasets/stats-full.csv', index=False)
+	df_final.to_csv(f'../datasets/stats-full.csv', index=False)
