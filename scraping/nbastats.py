@@ -13,6 +13,10 @@ def all_time():
     servico = Service(GeckoDriverManager().install())
     navegador = webdriver.Firefox(service=servico)
 
+
+    siglas_old = ['SEA', 'NJN', 'VAN', 'NOH', 'CHA']
+	siglas_new = ['OKC', 'BKN', 'MEM', 'NOP', 'CHH']
+
     year = 2022
     seasons = ['2021-22', '2020-21', '2019-20', '2018-19', '2017-18', '2016-17', '2015-16', '2014-15', '2013-14',
           		'2012-13', '2011-12', '2010-11', '2009-10', '2008-09', '2007-08', '2006-07', '2005-06', '2004-05',
@@ -29,11 +33,14 @@ def all_time():
 	    table = bs.find(name='table')
 
     # pandas step
-
+    	
 	    df = pd.read_html(str(table))[0]
 	    del df['Unnamed: 0']
 	    df_full = df[['PLAYER', 'TEAM', 'AGE', 'GP', 'MIN', 'PTS', 'AST', 'REB', 'FG%', '3P%', 'FT%']].head(15).copy()
 	    df_full['YEAR'] = year
+	    # Mudando sigças antigas por novas (atuais)
+	    df['TEAM'] = df['TEAM'].replace(siglas_old, siglas_new)
+	    # Salvando dados
 	    df_full.to_csv(f'{season}.csv', index=False)
 	    year -= 1
 
@@ -41,6 +48,53 @@ def all_time():
 
     return
 
+
+def wins_rate():
+	servico = Service(GeckoDriverManager().install())
+	navegador = webdriver.Firefox(service=servico)
+
+
+	siglas = ['CHI', 'UTA', 'MIA', 'HOU', 'NYK', 'ATL', 'LAL', 'DET', 'POR', 'ORL', 'CLE', 'MIN', 'PHX', 'IND', 'SAC', 'MIL', 'GSW', 'TOR', 'DAL', 'PHI', 'DEN', 'SAS', 'BOS']
+
+	teams = ['Chicago Bulls', 'Utah Jazz', 'Miami Heat', 'Houston Rockets', 'New York Knicks', 'Atlanta Hawks', 'Los Angeles Lakers', 'Detroit Pistons', 'Portland Trail Blazers', 
+	'Orlando Magic', 'Cleveland Cavaliers', 'Minnesota Timberwolves', 'Phoenix Suns', 'Indiana Pacers', 'Sacramento Kings', 'Milwaukee Bucks', 'Golden State Warriors', 
+	'Toronto Raptors', 'Dallas Mavericks', 'Philadelphia 76ers', 'Denver Nuggets', 'San Antonio Spurs', 'Boston Celtics']
+
+
+	seasons = ['2021-22', '2020-21', '2019-20', '2018-19', '2017-18', '2016-17', '2015-16', '2014-15', '2013-14',
+          		'2012-13', '2011-12', '2010-11', '2009-10', '2008-09', '2007-08', '2006-07', '2005-06', '2004-05',
+          		'2003-04', '2002-03', '2001-02', '2000-01', '1999-00', '1998-99', '1997-98', '1996-97']
+	
+	for season in seasons:
+		url = f'https://www.nba.com/stats/teams/traditional?Season={season}'
+		navegador.get(url)
+		sleep(7)		
+		element = navegador.find_element(By.XPATH, "//div[@class='Crom_container__C45Ti']")
+		html = element.get_attribute('outerHTML')
+		bs = BeautifulSoup(html, 'html.parser')
+		table = bs.find(name='table')
+
+
+		df = pd.read_html(str(table))[0]
+		del df['Unnamed: 0']
+		df = df[['Team', 'WIN%']].copy()
+		df['WIN%'] = df['WIN%']*100
+		# Substituindo nomes por siglas
+		df['Team'] = df['Team'].replace(teams, siglas)
+		#Substituindo nomes por siglas para times com mais de um nome antigo
+		df['Team'] = df['Team'].replace(['Seattle SuperSonics', 'Oklahoma City Thunder'], 'OKC')
+		df['Team'] = df['Team'].replace(['Vancouver Grizzlies', 'Memphis Grizzlies'], 'MEM')
+		df['Team'] = df['Team'].replace(['Washington Bullets', 'Washington Wizards'], 'WAS')
+		df['Team'] = df['Team'].replace(['New Jersey Nets', 'Brooklyn Nets'], 'BKN')
+		df['Team'] = df['Team'].replace(['Charlotte Bobcats', 'Charlotte Hornets'], 'CHH')
+		df['Team'] = df['Team'].replace(['New Orleans Hornets', 'New Orleans Pelicans'], 'NOP')
+		df['Team'] = df['Team'].replace(['LA Clippers', 'Los Angeles Clippers'], 'LAC')
+		#Salvando base de dados para cada ano
+		df.to_csv(f'wins-{season}.csv', index=False)
+
+	navegador.quit()
+
+	return
 
 def mvps():
     
@@ -116,8 +170,10 @@ def add_mvp_param():
 
 	return 
 
+def add_wins_rate():
+	pass
 
-def concat():
+def concat_players():
 
 	df1 = pd.read_csv('./1996-97.csv')
 	df2 = pd.read_csv('./1997-98.csv')
@@ -157,6 +213,43 @@ def concat():
 
 	return
 
+def concat_wins_seasons():
+	df1 = pd.read_csv('./wins-1996-97.csv')
+	df2 = pd.read_csv('./wins-1997-98.csv')
+	df3 = pd.read_csv('./wins-1998-99.csv')
+	df4 = pd.read_csv('./wins-1999-00.csv')
+	df5 = pd.read_csv('./wins-2000-01.csv')
+	df6 = pd.read_csv('./wins-2001-02.csv')
+	df7 = pd.read_csv('./wins-2002-03.csv')
+	df8 = pd.read_csv('./wins-2003-04.csv')
+	df9 = pd.read_csv('./wins-2004-05.csv')
+	df10 = pd.read_csv('./wins-2005-06.csv')
+	df11 = pd.read_csv('./wins-2006-07.csv')
+	df12 = pd.read_csv('./wins-2007-08.csv')
+	df13 = pd.read_csv('./wins-2008-09.csv')
+	df14 = pd.read_csv('./wins-2009-10.csv')
+	df15 = pd.read_csv('./wins-2010-11.csv')
+	df16 = pd.read_csv('./wins-2011-12.csv')
+	df17 = pd.read_csv('./wins-2012-13.csv')
+	df18 = pd.read_csv('./wins-2013-14.csv')
+	df19 = pd.read_csv('./wins-2014-15.csv')
+	df20 = pd.read_csv('./wins-2015-16.csv')
+	df21 = pd.read_csv('./wins-2016-17.csv')
+	df22 = pd.read_csv('./wins-2017-18.csv')
+	df23 = pd.read_csv('./wins-2018-19.csv')
+	df24 = pd.read_csv('./wins-2019-20.csv')
+	df25 = pd.read_csv('./wins-2020-21.csv')
+	df26 = pd.read_csv('./wins-2021-22.csv')
+
+	df = pd.concat([df26, df25, df24, df23, df22, df21, df20, df19, df18, df17, 
+           df16, df15, df14, df13, df12, df11, df10, df9, df8, df7, 
+           df6, df5, df4, df3, df2, df1], ignore_index=True)
+
+	df.to_csv(f'./datasets/wins-seasons.csv', index=False)
+
+	# Apagando todos as tabelas
+	os.system('rm wins*')
+
 def old_mvps():
 	df_mvps = pd.read_csv('./datasets/mvps.csv')
 	df_old = df_mvps.loc[26:].copy()
@@ -179,6 +272,7 @@ def old_mvps():
 	fg = [49.5, 53.0, 52.8, 52.0, 51.9, 53.9, 48.0, 50.9, 53.5, 52.2, 49.6, 52.2, 49.2, 50.1, 51.9, 52.1, 60.4, 54.0, 52.2, 57.9, 52.9, 51.2, 53.9, 45.2, 57.4, 57.7, 50.7, 47.6, 59.5, 68.3, 54.0, 43.8, 48.3, 43.2, 45.7, 42.6, 46.1, 43.8, 44.2, 37.8, 42.9]
 	p3 = [42.7, 30.0, 42.1, 30.5, 27.0, 31.2, 38.4, 31.4, 13.2, 20.5, 42.3, 42.7, 24.7, 0.0, 0.0, 22.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 	ft = [83.4, 77.4, 71.6, 76.5, 83.2, 85.1, 89.0, 91.1, 84.1, 84.8, 89.6, 88.2, 88.8, 76.1, 76.2, 78.7, 76.5, 73.9, 72.0, 70.1, 70.3, 80.5, 70.2, 77.9, 68.9, 69.0, 75.6, 60.5, 38.0, 44.1, 51.3, 57.3, 85.3, 55.5, 59.5, 55.0, 58.2, 75.9, 51.9, 82.1, 73.6]
+	wins = [45.8, 61.1, 68.1, 68.1, 65.3, 72.2, 75.0, 72.5, 68.8, 77.5, 68.8, 84.0, 75.6, 69.5, 73.2, 80.5, 76.8, 82.9, 72.0, 59.8, 48.8, 64.7, 70.8, 57.3, 73.2, 75.6, 56.1, 79.3, 75.6, 76.8, 81.7, 79.3, 61.0, 69.5, 76.8, 74.4, 81.7, 75.6, 70.7, 75.6, 87.8]
 	ano = df_old['YEAR']
 
 	df_old['MVP'] = 1
@@ -192,7 +286,8 @@ def old_mvps():
 	df_old.insert(7, 'FG%', fg)
 	df_old.insert(8, '3P%', p3)
 	df_old.insert(9, 'FT%', ft)
-	df_old.insert(10, 'YEAR', ano)
+	df_old.insert(10, 'W%', wins)
+	df_old.insert(11, 'YEAR', ano)
 
 	df_old.to_csv(f'./datasets/old.csv', index=False)
 
