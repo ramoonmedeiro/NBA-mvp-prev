@@ -1,4 +1,4 @@
-YEAR,PLAYER,POS,TEAM,FG%,PPG,RPG,APG,BLKPG
+YEAR,Player,POS,Team,FG%,PPG,RPG,APG,BLKPG
 2022,Nikola Jokic,C,Denver Nuggets,58.3,27.1,13.8,7.9,0.9
 2021,Nikola Jokic,C,Denver Nuggets,56.599999999999994,26.4,10.8,8.3,0.7
 2020,Giannis Antetokounmpo,PF,Milwaukee Bucks,55.300000000000004,29.5,13.6,5.6,1.0

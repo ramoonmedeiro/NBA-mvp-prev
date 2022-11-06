@@ -112,7 +112,7 @@ def mvps():
     # pandas step
 
     df = pd.read_html(str(table))[0]
-    df.columns = ['YEAR', 'PLAYER', 'POS', 'TEAM', 'FG%', 'PPG', 'RPG', 'APG', 'BLKPG', 'DEL']
+    df.columns = ['YEAR', 'Player', 'POS', 'Team', 'FG%', 'PPG', 'RPG', 'APG', 'BLKPG', 'DEL']
     df_full = df.iloc[2:69]
     df_full.reset_index(drop=True, inplace=True)
     del df_full['DEL']
@@ -134,7 +134,7 @@ def mvps():
     df_full.loc[[8, 9, 36, 37, 38, 41],'POS'] = 'SF'
     df_full.loc[[42, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 59, 60, 61, 62, 63, 64, 66], 'POS'] = 'C'
 
-    df_full.to_csv('./datasets/mvps.csv', index=False)
+    df_full.to_csv('../datasets/mvps.csv', index=False)
 
     return
 
@@ -161,16 +161,27 @@ def add_mvp_param():
 
 	df_mvps = pd.read_csv('../datasets/mvps.csv')
 	df_copy_mvps = df_mvps.loc[0:25].copy()
-	mvps = list(df_copy_mvps['PLAYER'])
+	mvps = list(df_copy_mvps['Player'])
 	for i in range(len(mvps)):
 	    df = pd.read_csv(f'./{seasons[i]}.csv')
 	    df['MVP'] = df['Player'].apply(lambda linha: 1 if linha == mvps[i] else 0)
 	    df.to_csv(f'./{seasons[i]}.csv', index=False)
 
-	return 
+	return
 
 def add_wins_rate():
-	pass
+	
+	seasons = ['2021-22', '2020-21', '2019-20', '2018-19', '2017-18', '2016-17', '2015-16', '2014-15', '2013-14',
+          	   '2012-13', '2011-12', '2010-11', '2009-10', '2008-09', '2007-08', '2006-07', '2005-06', '2004-05',
+          	   '2003-04', '2002-03', '2001-02', '2000-01', '1999-00', '1998-99', '1997-98', '1996-97']
+	for season in seasons:
+		df_season = pd.read_csv(f'{season}.csv')
+		df_wins = pd.read_csv(f'wins-{season}.csv')	
+		df = df_season.merge(df_wins, how='inner', on='Team')
+		df.to_csv(f'./{season}.csv', index=False)
+
+
+	return
 
 def concat_players():
 
@@ -257,10 +268,10 @@ def old_mvps():
 	df_old['PPG'] = np.where(df_old['PPG'] == 'No stats available.', np.nan, np.nan)
 
 # Inserindo siglas npos times
-	times_unicos = list(df_old['TEAM'].unique())
+	times_unicos = list(df_old['Team'].unique())
 	siglas = ['CHI', 'SAS', 'HOU', 'PHX', 'LAL', 'BOS', 'PHI', 'POR', 'LAC', 'MIL', 'NYK', 'WAS', 'SAC', 'GSW', 'ATL']
 
-	df_old['TEAM'] = df_old['TEAM'].replace(times_unicos, siglas)
+	df_old['Team'] = df_old['Team'].replace(times_unicos, siglas)
 
 	# Inserindo dados faltantes. Créditos ao site statsmuse ( que possui todos os dados de MVP que eu necessitava )
 	gp = [82, 81, 80, 76, 80, 82, 79, 77, 82, 80, 82, 80, 79, 78, 81, 82, 82, 82, 58, 82, 82, 82, 81, 82, 81, 82, 81, 82, 82, 81, 79, 78, 79, 78, 76, 78, 72, 72, 69, 64, 72]
@@ -271,23 +282,23 @@ def old_mvps():
 	fg = [49.5, 53.0, 52.8, 52.0, 51.9, 53.9, 48.0, 50.9, 53.5, 52.2, 49.6, 52.2, 49.2, 50.1, 51.9, 52.1, 60.4, 54.0, 52.2, 57.9, 52.9, 51.2, 53.9, 45.2, 57.4, 57.7, 50.7, 47.6, 59.5, 68.3, 54.0, 43.8, 48.3, 43.2, 45.7, 42.6, 46.1, 43.8, 44.2, 37.8, 42.9]
 	p3 = [42.7, 30.0, 42.1, 30.5, 27.0, 31.2, 38.4, 31.4, 13.2, 20.5, 42.3, 42.7, 24.7, 0.0, 0.0, 22.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 	ft = [83.4, 77.4, 71.6, 76.5, 83.2, 85.1, 89.0, 91.1, 84.1, 84.8, 89.6, 88.2, 88.8, 76.1, 76.2, 78.7, 76.5, 73.9, 72.0, 70.1, 70.3, 80.5, 70.2, 77.9, 68.9, 69.0, 75.6, 60.5, 38.0, 44.1, 51.3, 57.3, 85.3, 55.5, 59.5, 55.0, 58.2, 75.9, 51.9, 82.1, 73.6]
-	wins = [45.8, 61.1, 68.1, 68.1, 65.3, 72.2, 75.0, 72.5, 68.8, 77.5, 68.8, 84.0, 75.6, 69.5, 73.2, 80.5, 76.8, 82.9, 72.0, 59.8, 48.8, 64.7, 70.8, 57.3, 73.2, 75.6, 56.1, 79.3, 75.6, 76.8, 81.7, 79.3, 61.0, 69.5, 76.8, 74.4, 81.7, 75.6, 70.7, 75.6, 87.8]
+	wins = [87.8, 84.0, 82.9, 81.7, 81.7, 80.5, 79.3, 79.3, 77.5, 76.8, 76.8, 76.8, 75.6, 75.6, 75.6, 75.6, 75.6, 75.0, 74.4, 73.2, 73.2, 72.5, 72.2, 72.0, 70.8, 70.7, 69.5, 69.5, 68.8, 68.8, 68.1, 68.1, 65.3, 64.7, 61.1, 61.0, 59.8, 57.3, 56.1, 48.8, 45.8]
+
 	ano = df_old['YEAR']
 
-	df_old['MVP'] = 1
 	df_old.drop(['YEAR', 'FG%', 'PPG', 'RPG', 'APG', 'BLKPG', 'POS'], axis = 1 , inplace=True)
 
 	df_old.insert(2, 'GP', gp)
-	df_old.insert(3, 'MIN', mins)
+	df_old.insert(3, 'Min', mins)
 	df_old.insert(4, 'PTS', pts)
 	df_old.insert(5, 'AST', ast)
 	df_old.insert(6, 'REB', reb)
 	df_old.insert(7, 'FG%', fg)
 	df_old.insert(8, '3P%', p3)
 	df_old.insert(9, 'FT%', ft)
-	df_old.insert(10, 'W%', wins)
-	df_old.insert(11, 'YEAR', ano)
-
+	df_old.insert(10, 'YEAR', ano)
+	df_old.insert(11, 'WIN%', wins)
+	df_old['MVP'] = 1
 	df_old.to_csv(f'../datasets/old.csv', index=False)
 
 def concat_old_new():
@@ -297,7 +308,7 @@ def concat_old_new():
 	df_new = pd.read_csv('../datasets/stats-full.csv')
 
 	# Excluindo coluna que não é necessária neste primeiro momento
-	df_new.drop('AGE', axis=1, inplace = True)
+	df_new.drop('Age', axis=1, inplace = True)
 
 	# Concatenando todos os dados
 	df_final = pd.concat([df_new, df_old], ignore_index=True)
