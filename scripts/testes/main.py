@@ -12,10 +12,6 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
-# MLFlow
-import mlflow
-import mlflow.sklearn
-
 # Carregando base
 df = pd.read_csv('../../datasets/stats-full.csv')
 
@@ -28,18 +24,10 @@ X_treino, X_teste, y_treino, y_teste = train_test_split(X, y, test_size=0.2, ran
 
 # Definição dos modelos e scalers
 modelos = [LogisticRegression(), SVC(probability=True), KNeighborsClassifier(), GaussianNB(), DecisionTreeClassifier(), RandomForestClassifier()]
-modelos_balanced = [LogisticRegression(class_weight='balanced'), SVC(probability=True, class_weight='balanced'), DecisionTreeClassifier(class_weight='balanced'), RandomForestClassifier(class_weight='balanced')]
+# Mdoelos com melhores desempenhos com hiperparametros default.
+modelos_balanced = [SVC(probability=True, class_weight='balanced'), DecisionTreeClassifier(class_weight='balanced'), RandomForestClassifier(class_weight='balanced')]
 scalers = [StandardScaler(), MinMaxScaler()]
 
-# Iniciando experimento com mlflow e executando funções
-
-mlflow.set_experiment('baseline')
-
-with mlflow.start_run():
-
-    resultados = results.testes(k = 7, modelos = modelos, scalers = scalers, scoring = 'recall')
-
-    # registrando métrica
-    mlflow.log_metric('Recall', resultados)
-
-mlflow.end_run()
+# Chamando funções e armazenando informações com o MLFlow
+results.testes(X_treino, y_treino, k = 7, modelos = modelos, scalers = scalers, scoring = 'recall')
+results.testes(X_treino, y_treino, k = 7, modelos = modelos_balanced, scalers = scalers, scoring = 'recall')

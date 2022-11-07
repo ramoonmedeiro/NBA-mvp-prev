@@ -15,27 +15,27 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.feature_selection import SelectKBest, chi2
 from sklearn.pipeline import Pipeline
 
+# MLFlow
+import mlflow
+import mlflow.sklearn
+
 
 # Iniciando modelo baseline
-def testes(k, modelos, scalers, scoring):
-    for i in range(k, 0, -1):
-        for scaler in scalers:
-            for modelo in modelos:  
-                pipe = Pipeline(steps=[
-                    ('select', SelectKBest(chi2, k=i)),
-                    ('scaler', scaler),
-                    ('model', modelo)
-                ])
-                skfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=99)
-                resultados = cross_val_score(pipe, X_treino, y_treino, cv=skfold, scoring=scoring)
+def testes(X_treino, y_treino, k, modelos, scalers, scoring):
 
-    return resultados
+        for i in range(k, 0, -1):
+            for scaler in scalers:
+                for modelo in modelos:
+                    mlflow.set_experiment('MELHORES')
+                    with mlflow.start_run():
 
-def baseline(modelos, scalers):
-	pass
-
-def balanceados(modelos_balanceados, scalers):
-	pass
-
-def otimizacao(modelo):
-	pass
+                        pipe = Pipeline(steps=[
+                            ('select', SelectKBest(chi2, k=i)),
+                            ('scaler', scaler),
+                            ('model', modelo)
+                        ])
+                        skfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=99)
+                        resultados = cross_val_score(pipe, X_treino, y_treino, cv=skfold, scoring=scoring)
+                        mlflow.log_metric('Recall', round(resultados.mean()*100,2))
+                        mlflow.sklearn.log_model(pipe, 'modelo')
+                    mlflow.end_run()
