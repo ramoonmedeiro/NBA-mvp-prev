@@ -244,7 +244,7 @@ O deploy foi realizado na plataforma HuggingFace.co, para acessar basta entrar n
 
 Esta seção visa comparar os resultados obtidos pelo modelo realizado nesse projeto e resultados liberados pela comunidade e pela própria NBA para o ranking de jogadores que estão disputando para MVP.
 
-A pasta "compare" possui o script que irá realizar o scraping para obter os valores dos 30 melhores pontuadores da nba e classifica-los em um top 10 para fins de comparação.
+A pasta "compare" possui o script que irá realizar o scraping para obter os valores dos 30 melhores pontuadores da nba e classifica-los em um top 5 para fins de comparação.
 
 --------------
 * Mês 1:
@@ -253,16 +253,11 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 Dia = 4/11/2022:
 
      NBA (NBA.com)                                        ML
-1 - Giannis Antetokounmpo                        1 - Giannis Antetokounmpo
-2 - Luka Doncic                                  2 - Jayson Tatum 
-3 - Donovan Mitchell                             3 - Pascal Siakam
-4 - Ja Morant                                    4 - Luka Doncic
-5 - Devin Booker                                 5 - Donovan Mitchell
-6 - Damian Lillard                               6 - Nikola Jokic
-7 - Jayson Tatum                                 7 - Jrue Holiday 
-8 - Pascal Siakam                                8 - Lauri Markkanen
-9 - Nikola Jokic                                 9 - Damian Lillard 
-10 - Shai Gilgeous-Alexander                     10 - Devin Booker
+1 - Giannis Antetokounmpo                        1 - Donovan Mitchell 
+2 - Luka Doncic                                  2 - Giannis Antetokounmpo 
+3 - Donovan Mitchell                             3 - Luka Doncic
+4 - Ja Morant                                    4 - Nikola Jokic
+5 - Devin Booker                                 5 - Jrue Holiday
 ```
 
 
