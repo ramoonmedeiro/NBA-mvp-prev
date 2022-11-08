@@ -135,7 +135,10 @@ Os dados extraídos não constam com todos os anos em que houve premiação da N
 
 A métrica utilizada para este problema é o recall, já que estou dando mais importância para o falsos negativos (FN).
 
-Os atributos selecionados para a realização da predição foram: MIN, PTS, AST, REB, FG% e FT%, onde:
+
+*PS: Esta versão consta com uma nova feature (WIN%), que era difícil de extrair da internet, porém, foi realizado a extração e junção dos valores e o código pode ser encontrado na pasta /scraping*.
+
+Os atributos selecionados para a realização da predição foram: MIN, PTS, AST, REB, FG%, FT% e WIN%, onde:
 
 	- MIN : Minutos em quadra.
 	- PTS : Média de pontos por jogo.
@@ -197,8 +200,11 @@ Em comparação com o modelo anterior, que era uma regressão logística, o reca
 </tbody>
 </table>
 
+
+É importante ressaltar a importância de utilizar e extrair as features mais importantes para o problema, apenas com a adição de uma nova feature (WIN%), que na vida real é importante para a classificação de um MVP da NBA, houve uma melhora interessante no valor do recall e precisão.
+
 Com isso, foi utilizado o conjunto de teste no modelo preditivo final para esta versão. O resultado foi: 93.75 % de recall e 40.10 % de precisão.
-O resultado em comparação ao resultado da versão anterior (com a regressão logística) foi substancialmente melhor e por isso o mesmo será colocado em produção.
+O resultado em comparação ao resultado da versão anterior (com a regressão logística) foi substancialmente melhor e por isso o mesmo será colocado em produção. 
 
 # Deploy
 
