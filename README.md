@@ -165,7 +165,37 @@ Os melhores hiperparâmetros para o classificador SVC foram os seguintes:
 
 Em comparação com o modelo anterior, que era uma regressão logística, o recall máximo atingido foi de 81.15%, com precição de 42%. Abaixo está uma tabela resumindo os valores para cada modelo:
 
-
+<table class="tg", align="center">
+<thead>
+  <tr>
+    <th class="tg-7btt">Modelos<br></th>
+    <th class="tg-7btt">Recall<br></th>
+    <th class="tg-baqh"><span style="font-weight:bold">Precisão</span></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-c3ow">LogisticRegression(class_weight="balanced", max_iter=100, C=0.01, solver='liblinear', penalty='l2')<br></td>
+    <td class="tg-c3ow">81.15%<br></td>
+    <td class="tg-baqh">42.00%</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">SVC()</td>
+    <td class="tg-c3ow">72.73%<br></td>
+    <td class="tg-baqh">21.22%</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">SVC(class_weight='balanced')<br></td>
+    <td class="tg-c3ow">88.18%<br></td>
+    <td class="tg-baqh">35.67%</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">SVC(class_weight='balanced', <br>'model__C': 0.01, 'model__gamma': 1, 'model__kernel': 'sigmoid')<br></td>
+    <td class="tg-c3ow">94.18%<br></td>
+    <td class="tg-baqh">40.28%</td>
+  </tr>
+</tbody>
+</table>
 
 
 # Deploy
