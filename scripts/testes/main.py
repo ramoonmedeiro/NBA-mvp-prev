@@ -4,6 +4,9 @@ from results import Baseline, Melhores, Otimizacao
 # Manipulação de dados
 import pandas as pd
 
+# Joblib lib
+import joblib
+
 # Separação entre treino e teste
 from sklearn.model_selection import train_test_split
 
@@ -37,8 +40,8 @@ modelos_balanced = [SVC(probability=True, class_weight='balanced'), DecisionTree
 scalers = [StandardScaler(), MinMaxScaler()]
 
 # Instanciação e armazenando informações com o MLFlow
-baseline = Baseline(X_treino, y_treino, k = 7, modelos = modelos, scalers = scalers, scoring = 'recall', name='Baseline')
-best = Melhores(X_treino, y_treino, k = 7, modelos = modelos_balanced, scalers = scalers, scoring = 'recall', name='Melhores') 
+#baseline = Baseline(X_treino, y_treino, k = 7, modelos = modelos, scalers = scalers, scoring = 'recall', name='Baseline')
+#best = Melhores(X_treino, y_treino, k = 7, modelos = modelos_balanced, scalers = scalers, scoring = 'recall', name='Melhores') 
 #baseline.testes()
 #best.testes()
 
@@ -57,8 +60,7 @@ params = {
 
 
 # Instaciacao
-grid = Otimizacao(X_treino, y_treino, modelo, scoring)
+grid = Otimizacao(X_treino, y_treino, modelo = modelo, params = params, scoring = 'recall')
 
 #Apresentado melhores parametros e resultado.
 grid.opt()
-
