@@ -23,11 +23,11 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 df = pd.read_csv('../../datasets/stats-full.csv')
 
 # Escolhendo as features desejadas
-X = df.drop(['Player', 'Team', 'GP', 'YEAR', '3P%', 'MVP'], axis=1)
+X = df.drop(['Player', 'Min', 'Team', 'GP', 'YEAR', '3P%', 'MVP'], axis=1)
 y = df['MVP']
 
 # Separação entre treino e teste
-X_treino, X_teste, y_treino, y_teste = train_test_split(X, y, test_size=0.2, random_state=99)
+X_treino, X_teste, y_treino, y_teste = train_test_split(X, y, test_size=0.4, random_state=99)
 
 # Definição dos modelos e scalers
 modelos = [LogisticRegression(), SVC(probability=True), KNeighborsClassifier(), 
@@ -40,10 +40,10 @@ modelos_balanced = [SVC(probability=True, class_weight='balanced'), DecisionTree
 scalers = [StandardScaler(), MinMaxScaler()]
 
 # Instanciação e armazenando informações com o MLFlow
-#baseline = Baseline(X_treino, y_treino, k = 7, modelos = modelos, scalers = scalers, scoring = 'recall', name='Baseline')
-#best = Melhores(X_treino, y_treino, k = 7, modelos = modelos_balanced, scalers = scalers, scoring = 'recall', name='Melhores') 
-#baseline.testes()
-#best.testes()
+baseline = Baseline(X_treino, y_treino, k = 6, modelos = modelos, scalers = scalers, scoring = 'recall', name='Baseline')
+best = Melhores(X_treino, y_treino, k = 6, modelos = modelos_balanced, scalers = scalers, scoring = 'recall', name='Melhores') 
+baseline.testes()
+best.testes()
 
 
 # Carregando o melhor modelo com hiperparametros default

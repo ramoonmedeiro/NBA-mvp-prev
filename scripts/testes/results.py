@@ -68,10 +68,11 @@ class Otimizacao():
 
     def opt(self):
         pipe_best = self.modelo
-        pipe_grid = GridSearchCV(self.modelo, self.params , scoring=self.scoring, cv=5)
+
+        skfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=99)
+        pipe_grid = GridSearchCV(self.modelo, self.params , scoring=self.scoring, cv=skfold)
         pipe_grid.fit(self.X_treino, self.y_treino)
 
         # Apresentado resultados
         print(pipe_grid.best_params_)
         print(pipe_grid.best_score_)
-    
