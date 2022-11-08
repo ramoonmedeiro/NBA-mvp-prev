@@ -138,6 +138,14 @@ A métrica utilizada para este problema é o recall, já que estou dando mais im
 
 **PS: Esta versão consta com a exclusão da feature (Min) e a inclusão de uma nova feature (WIN%), que era difícil de extrair da internet, porém, foi realizado a extração e junção dos valores e o código pode ser encontrado na pasta /scraping**.
 
+A razão para retirar a feature 'Min' é em virtude da minutagem em quadra dos jogadores ter diminuído com o tempo, tendência que pode ser observada em vários outros esportes. A diminuição dos minutos em quadra dos jogadores da NBA é em virtude da preservarção da integridade física para aguentar os diversos jogos da temporada. O Gráfico abaixo mostra a relação dos valores para as classes 0 (Não-MVP) e 1 (MVP):
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/102380417/200566998-4787c97d-a48a-4157-abae-88d6dea1201d.png" width="600px" />
+</div>
+
+
+
 Os atributos selecionados para a realização da predição foram: PTS, AST, REB, FG%, FT% e WIN%, onde:
 
 	- PTS : Média de pontos por jogo.
