@@ -230,8 +230,8 @@ Em comparação com o modelo anterior, que era uma regressão logística, o reca
 
 Com isso, foi utilizado o conjunto de teste no modelo preditivo final para esta versão. O resultado foi:
 
-- f1 score = 77.44 %
-- recall = 85.04 %
+- f1 score = 81.93 %
+- recall = 96.63 %
 - precisão = 71.12 %
 
 O resultado em comparação ao resultado da versão anterior (com a regressão logística) foi substancialmente melhor e por isso o mesmo será colocado em produção. 
