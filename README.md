@@ -136,7 +136,7 @@ Os dados extraídos não constam com todos os anos em que houve premiação da N
 A métrica utilizada para este problema é o recall, já que estou dando mais importância para o falsos negativos (FN).
 
 
-*PS: Esta versão consta com uma nova feature (WIN%), que era difícil de extrair da internet, porém, foi realizado a extração e junção dos valores e o código pode ser encontrado na pasta /scraping*.
+**PS: Esta versão consta com uma nova feature (WIN%), que era difícil de extrair da internet, porém, foi realizado a extração e junção dos valores e o código pode ser encontrado na pasta /scraping**.
 
 Os atributos selecionados para a realização da predição foram: MIN, PTS, AST, REB, FG%, FT% e WIN%, onde:
 
@@ -220,7 +220,19 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 * Mês 1:
 
 ```
-Aguardando dados
+Dia = 4/11/2022:
+
+     NBA (NBA.com)                                        ML
+1 - Giannis Antetokounmpo                        1 - Giannis Antetokounmpo
+2 - Luka Doncic                                  2 - Jayson Tatum 
+3 - Donovan Mitchell                             3 - Pascal Siakam
+4 - Ja Morant                                    4 - Luka Doncic
+5 - Devin Booker                                 5 - Donovan Mitchell
+6 - Damian Lillard                               6 - Nikola Jokic
+7 - Jayson Tatum                                 7 - Jrue Holiday 
+8 - Pascal Siakam                                8 - Lauri Markkanen
+9 - Nikola Jokic                                 9 - Damian Lillard 
+10 - Shai Gilgeous-Alexander                     10 - Devin Booker
 ```
 
 
