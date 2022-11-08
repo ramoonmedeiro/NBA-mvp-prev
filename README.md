@@ -173,17 +173,26 @@ Na pasta scripts/testes, existem as classes e métodos que foram construídas pa
 
 O processo de validação foi com a validação cruzada, já que o dataset coletado é pequeno, ou seja, separei o conjunto dos dados entre treino e teste, usando a validação cruzada no conjunto de treino para realizar a classificação dos modelos.
 
-De início, para achar o melhor modelo baseline (sem penalização da classe majoritária e com hiperparâmetros default), foi realizada a validação cruzada para todos os algoritmos listados no arquivo <i>results.py</i>. O que possuiu o maior recall foi o modelo SVC, com recall igual à 72.73 %, onde utilizou o standard scaler para padronizar os dados. 
+De início, para achar o melhor modelo baseline (sem penalização da classe majoritária e com hiperparâmetros default), foi realizada a validação cruzada para todos os algoritmos listados no arquivo <i>results.py</i>. O que possuiu o maior recall foi o modelo regressão logística, com f1 score igual à 65.89 %, onde utilizou o standard scaler para padronizar os dados. 
 
-Uma forma de acrescentar mais complexidade ao modelo é realizar a seleção das features e penalizar a classe majoritária, fazendo isso, houve uma melhora significativa. O melhor modelo novamente foi o SVC, com um valor de recall igual à 88.18 %. 
+Uma forma de acrescentar mais complexidade ao modelo é realizar a seleção das features e penalizar a classe majoritária, fazendo isso, houve uma melhora significativa. O melhor modelo novamente foi o SVC, com os seguintes valores:
 
-Com isso, para alcançar um valor mais expressivo de recall, houve a otimização dos hiperparâmetros com o GridSearchCV, já que não há muitos valores para hiperparâmetros do algoritmo SVC. Após a realização do <i>tunning</i> de hiperparâmetros, o resultado foi: 94.18 % para o recall e precisão de 40.28 %.
+- f1 score = 82.02 %
+- recall = 92.00 %
+- precisão = 73.69 %
+
+Com isso, para alcançar um valor mais expressivo de f1 score, recall e precisão, houve a otimização dos hiperparâmetros com o GridSearchCV, já que não há muitos valores para hiperparâmetros do algoritmo SVC. Após a realização do <i>tunning</i> de hiperparâmetros, o resultado foi:
+
+- f1 score = 83.34 %
+- recall = 98.04 %
+- precisão = 72.46 %
+
 Os melhores hiperparâmetros para o classificador SVC foram os seguintes: 
 ```
-{'C': 0.01, gamma': 1, kernel': 'sigmoid'}
+{C = 1, gamma = 0.1, kernel = 'rbf'}
 ```
 
-Em comparação com o modelo anterior, que era uma regressão logística, o recall máximo atingido foi de 81.15%, com precição de 42%. Abaixo está uma tabela resumindo os valores para cada modelo:
+Em comparação com o modelo anterior, que era uma regressão logística, o recall máximo atingido foi de 81.15%, com precição de 42% e f1 score de 55.31 %. Abaixo está uma tabela resumindo os valores para cada modelo:
 
 <table class="tg", align="center">
 <thead>
