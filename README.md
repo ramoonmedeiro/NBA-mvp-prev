@@ -10,7 +10,7 @@ que irá ser premiado com o MVP, poucos jogadores conseguem tal feito, mais raro
 
 # Objetivos
 
-Como visto acima, diversos fatores contribuem para um jogador da NBA ser eleito o MVP da temporada regular, portanto, este projeto visa criar um algoritmo de classificação com a intenção de prever o vencedor do mvp nas temporadas seguintes. Testarei diversos algoritmos supervisionados para 
+Como visto acima, diversos fatores contribuem para um jogador da NBA ser eleito o MVP da temporada regular, portanto, este projeto visa criar um algoritmo de classificação com a intenção de prever o vencedor do mvp nas temporadas seguintes. Testarei diversos algoritmos para o aprendizado supervisionado para 
 realizar a predição. 
 	
 Os dados foram extraídos por mim, utilizando os scripts <i>main.py</i> e <i>nbastats.py</i> de minha autoria. Os mesmos scripts já possuem um tratamento 
@@ -133,14 +133,31 @@ Olhando a Figura acima nota-se que o atributo posição é substancial, 31 jogad
 
 Os dados extraídos não constam com todos os anos em que houve premiação da NBA, pois, no site da NBA existem dados oficiais a partir da temporada 1996-1997, logo, foi possível extrair dados das últimas 26 temporadas, portanto, o dataset criado não possui muitos dados e o mesmo está desbalanceado. A ideia por trás da extração e preparação dos dados é em virtude do MVP da temporada regular estar entre os 15 maiores cestinha da temporada, com exceção para Steve Nash em 2005 e 2006. Ou seja, das últimas 26 vezes que o prêmio de MVP foi dado a um atleta, apenas dois destes não estavam entre os 15 maiores pontuadores da temporada regular, logo, achei relevante usar este fato como ponto central da minha modelagem. 
 
-A métrica utilizada para este problema é o recall, já que estou dando mais importância para o falsos negativos (FN).
+As métricas utilizadas para este problema são: recall, precisão e f1 score, com enfâse no valor do recall (para uma dada precisão) já que estou dando mais importância para o falsos negativos (FN).
 
 
-**PS: Esta versão consta com uma nova feature (WIN%), que era difícil de extrair da internet, porém, foi realizado a extração e junção dos valores e o código pode ser encontrado na pasta /scraping**.
+**PS: Esta versão consta com a exclusão da feature (Min) e a inclusão de uma nova feature (WIN%), que era difícil de extrair da internet, porém, foi realizado a extração e junção dos valores e o código pode ser encontrado na pasta /scraping**.
 
-Os atributos selecionados para a realização da predição foram: MIN, PTS, AST, REB, FG%, FT% e WIN%, onde:
+A razão para retirar a feature 'Min' é em virtude da minutagem em quadra dos jogadores ter diminuído com o tempo, tendência que pode ser observada em vários outros esportes. A diminuição dos minutos em quadra dos jogadores da NBA é em virtude da preservarção da integridade física para aguentar os diversos jogos da temporada. O Gráfico abaixo mostra a relação dos valores para as classes 0 (Não-MVP) e 1 (MVP):
 
-	- MIN : Minutos em quadra.
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/102380417/200566998-4787c97d-a48a-4157-abae-88d6dea1201d.png" width="600px" />
+</div>
+
+
+Apenas olhando este valor, poderia-se esperar que os minutos por jogo poderia ser uma feature importante para a classificação deste projeto, mas olhando os valores e comparando dados de 1997 até os dias de hoje com os valores de minutos por jogo para anos anteriores a 1997, chegamos ao gráfico abaixo:
+
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/102380417/200567109-6d7fcc23-8592-41ba-83d5-8f46ade0ba78.png" width="600px" />
+</div>
+
+
+Nota-se que a mediana para valores anteriores à 1997, está entre 39 a 40 minutos por jogo e cerca de 75% dos jogadores para esta época jogaram abaixo de 44 minutos por jogo. Já para valores após o ano de 1997, a mediana tanto para classes 0 e 1 estão próximas e em torno de 37 a 38 minutos por jogo. Além disso, 75% dos jogadores desta época jogaram abaixo de 39 minutos por jogo. Para se ter uma noção, um jogo da NBA possui 48 minutos do período regular, em caso de empates, existe 5 min de prorrogação e se houver empates na prorrogação mais 5 minutos são inseridos e assim por diante. Na temporada de 1961-62, Wilt Chamberlain obteve o valor médio de minutos por jogo de 48.5, ou seja, meio minuto a mais do que um jogo normal da nba. E a explicação para isso é que Wilt Chamberlain jogou todos os minutos regulares de todos os jogos da temporada e alguns jogos teve prorrogação e o mesmo jogou também, por isso a média maior do que 48 minutos por jogo, porém, tal prática parece-me impossível 60 anos depois, em razão dos motivos discutido acima.
+
+Seguindo em frente, os atributos selecionados para a realização da predição foram: PTS, AST, REB, FG%, FT% e WIN%, onde:
+
 	- PTS : Média de pontos por jogo.
 	- AST : Média de assistência por jogo.
 	- REB : Média de rebotes por jogo.
@@ -156,54 +173,67 @@ Na pasta scripts/testes, existem as classes e métodos que foram construídas pa
 
 O processo de validação foi com a validação cruzada, já que o dataset coletado é pequeno, ou seja, separei o conjunto dos dados entre treino e teste, usando a validação cruzada no conjunto de treino para realizar a classificação dos modelos.
 
-De início, para achar o melhor modelo baseline (sem penalização da classe majoritária e com hiperparâmetros default), foi realizada a validação cruzada para todos os algoritmos listados no arquivo <i>results.py</i>. O que possuiu o maior recall foi o modelo SVC, com recall igual à 72.73 %, onde utilizou o standard scaler para padronizar os dados. 
+De início, para achar o melhor modelo baseline (sem penalização da classe majoritária e com hiperparâmetros default), foi realizada a validação cruzada para todos os algoritmos listados no arquivo <i>results.py</i>. O que possuiu o maior recall foi o modelo regressão logística, com f1 score igual à 65.89 %, onde utilizou o standard scaler para padronizar os dados. 
 
-Uma forma de acrescentar mais complexidade ao modelo é realizar a seleção das features e penalizar a classe majoritária, fazendo isso, houve uma melhora significativa. O melhor modelo novamente foi o SVC, com um valor de recall igual à 88.18 %. 
+Uma forma de acrescentar mais complexidade ao modelo é realizar a seleção das features e penalizar a classe majoritária, fazendo isso, houve uma melhora significativa. O melhor modelo novamente foi o SVC, com os seguintes valores:
 
-Com isso, para alcançar um valor mais expressivo de recall, houve a otimização dos hiperparâmetros com o GridSearchCV, já que não há muitos valores para hiperparâmetros do algoritmo SVC. Após a realização do <i>tunning</i> de hiperparâmetros, o resultado foi: 94.18 % para o recall e precisão de 40.28 %.
+- f1 score = 82.02 %
+- recall = 92.00 %
+- precisão = 73.69 %
+
+Com isso, para alcançar um valor mais expressivo de f1 score, recall e precisão, houve a otimização dos hiperparâmetros com o GridSearchCV, já que não há muitos valores para hiperparâmetros do algoritmo SVC. Após a realização do <i>tunning</i> de hiperparâmetros, o resultado foi:
+
+- f1 score = 83.34 %
+- recall = 98.04 %
+- precisão = 72.46 %
+
 Os melhores hiperparâmetros para o classificador SVC foram os seguintes: 
 ```
-{'C': 0.01, gamma': 1, kernel': 'sigmoid'}
+{C = 1, gamma = 0.1, kernel = 'rbf'}
 ```
 
-Em comparação com o modelo anterior, que era uma regressão logística, o recall máximo atingido foi de 81.15%, com precição de 42%. Abaixo está uma tabela resumindo os valores para cada modelo:
+Em comparação com o modelo anterior, que era uma regressão logística, o recall máximo atingido foi de 81.15%, com precição de 42% e f1 score de 55.31 %. Abaixo está uma tabela resumindo os valores para cada modelo:
 
-<table class="tg", align="center">
+
+<table class="tg">
 <thead>
   <tr>
     <th class="tg-7btt">Modelos<br></th>
     <th class="tg-7btt">Recall<br></th>
-    <th class="tg-baqh"><span style="font-weight:bold">Precisão</span></th>
+    <th class="tg-c3ow"><span style="font-weight:bold">Precisão</span></th>
+    <th class="tg-7btt">F1 Score</th>
   </tr>
 </thead>
 <tbody>
   <tr>
     <td class="tg-c3ow">LogisticRegression(class_weight="balanced", max_iter=100, C=0.01, solver='liblinear', penalty='l2')<br></td>
     <td class="tg-c3ow">81.15%<br></td>
-    <td class="tg-baqh">42.00%</td>
-  </tr>
-  <tr>
-    <td class="tg-c3ow">SVC()</td>
-    <td class="tg-c3ow">72.73%<br></td>
-    <td class="tg-baqh">21.22%</td>
+    <td class="tg-c3ow">42.00%</td>
+    <td class="tg-c3ow">55.31 %</td>
   </tr>
   <tr>
     <td class="tg-c3ow">SVC(class_weight='balanced')<br></td>
-    <td class="tg-c3ow">88.18%<br></td>
-    <td class="tg-baqh">35.67%</td>
+    <td class="tg-c3ow">92.00%<br></td>
+    <td class="tg-c3ow">73.69%</td>
+    <td class="tg-c3ow">82.02%</td>
   </tr>
   <tr>
-    <td class="tg-c3ow">SVC(class_weight='balanced', <br>'model__C': 0.01, 'model__gamma': 1, 'model__kernel': 'sigmoid')<br></td>
-    <td class="tg-c3ow">94.18%<br></td>
-    <td class="tg-baqh">40.28%</td>
+    <td class="tg-c3ow">SVC(class_weight='balanced', C = 1, gamma = 0.1, kernel = 'rbf')<br></td>
+    <td class="tg-c3ow">98.04%</td>
+    <td class="tg-c3ow">72.46%<br></td>
+    <td class="tg-c3ow">83.34%</td>
   </tr>
 </tbody>
 </table>
 
-
 É importante ressaltar a importância de utilizar e extrair as features mais importantes para o problema, apenas com a adição de uma nova feature (WIN%), que na vida real é importante para a classificação de um MVP da NBA, houve uma melhora interessante no valor do recall e precisão.
 
-Com isso, foi utilizado o conjunto de teste no modelo preditivo final para esta versão. O resultado foi: 93.75 % de recall e 40.10 % de precisão.
+Com isso, foi utilizado o conjunto de teste no modelo preditivo final para esta versão. O resultado foi:
+
+- f1 score = 71.00 %
+- recall = 85.04 %
+- precisão = 85.17 %
+
 O resultado em comparação ao resultado da versão anterior (com a regressão logística) foi substancialmente melhor e por isso o mesmo será colocado em produção. 
 
 # Deploy
@@ -214,7 +244,7 @@ O deploy foi realizado na plataforma HuggingFace.co, para acessar basta entrar n
 
 Esta seção visa comparar os resultados obtidos pelo modelo realizado nesse projeto e resultados liberados pela comunidade e pela própria NBA para o ranking de jogadores que estão disputando para MVP.
 
-A pasta "compare" possui o script que irá realizar o scraping para obter os valores dos 30 melhores pontuadores da nba e classifica-los em um top 10 para fins de comparação.
+A pasta "compare" possui o script que irá realizar o scraping para obter os valores dos 30 melhores pontuadores da nba e classifica-los em um top 5 para fins de comparação.
 
 --------------
 * Mês 1:
@@ -223,16 +253,11 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 Dia = 4/11/2022:
 
      NBA (NBA.com)                                        ML
-1 - Giannis Antetokounmpo                        1 - Giannis Antetokounmpo
-2 - Luka Doncic                                  2 - Jayson Tatum 
-3 - Donovan Mitchell                             3 - Pascal Siakam
-4 - Ja Morant                                    4 - Luka Doncic
-5 - Devin Booker                                 5 - Donovan Mitchell
-6 - Damian Lillard                               6 - Nikola Jokic
-7 - Jayson Tatum                                 7 - Jrue Holiday 
-8 - Pascal Siakam                                8 - Lauri Markkanen
-9 - Nikola Jokic                                 9 - Damian Lillard 
-10 - Shai Gilgeous-Alexander                     10 - Devin Booker
+1 - Giannis Antetokounmpo                        1 - Donovan Mitchell 
+2 - Luka Doncic                                  2 - Giannis Antetokounmpo 
+3 - Donovan Mitchell                             3 - Luka Doncic
+4 - Ja Morant                                    4 - Nikola Jokic
+5 - Devin Booker                                 5 - Jrue Holiday
 ```
 
 
