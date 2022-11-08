@@ -143,33 +143,30 @@ Os atributos selecionados para a realização da predição foram: MIN, PTS, AST
 	- REB : Média de rebotes por jogo.
 	- FG% : Percentual de arremessos convertidos.
 	- FT% : Percentual de lances livres convertidos.
+	- WIN% : Porcentagem de vitória pelo clube.
 
 O atributo 3P% foi retirado do processo, pois para MVPs mais antigos, não existem dados oficiais desta característica.
 
-Já foi realizada a primeira troca de modelo, o modelo anterior estava com a técnica SMOTE para tratar dos dados desbalanceados. Tal técnica hoje em dia está se mostrando mais não efetivo do que sim, logo, treinei outros modelos para poder tratar o desbalanceamento de outras formas.
+Já foi realizada a primeira troca de modelo, o modelo anterior estava com a técnica SMOTE para tratar dos dados desbalanceados. Tal técnica hoje em dia está se mostrando mais não efetiva do que sim, logo, treinei outros modelos para poder tratar o desbalanceamento de outras formas.
 
-O modelo em questão foi treinando com diversas técnicas, com padronização ou normalização dos dados, com seleção de features, com redução de dimensionalidade, fazendo o logarítmo das características e por fim, foi realizada a potenciação de grau 2 e 3 das caracterísitcas. Ao final do processo, o modelo com melhor recall após a validação cruzada foi:
+Na pasta scripts/testes, existem as classes e métodos que foram construídas para a automação do processo de treinamento e escolha dos modelos. Para organizar os dados, foi utilizado o MLFlow que possui uma interface gráfica para a manutenção e visualização dos valores das métricas, hiperparâmetros e etc.
 
+O processo de validação foi com a validação cruzada, já que o dataset coletado é pequeno, ou seja, separei o conjunto dos dados entre treino e teste, usando a validação cruzada no conjunto de treino para realizar a classificação dos modelos.
+
+De início, para achar o melhor modelo baseline (sem penalização da classe majoritária e com hiperparâmetros default), foi realizada a validação cruzada para todos os algoritmos listados no arquivo <i>results.py</i>. O que possuiu o maior recall foi o modelo SVC, com recall igual à 72.73 %, onde utilizou o standard scaler para padronizar os dados. 
+
+Uma forma de acrescentar mais complexidade ao modelo é realizar a seleção das features e penalizar a classe majoritária, fazendo isso, houve uma melhora significativa. O melhor modelo novamente foi o SVC, com um valor de recall igual à 88.18 %. 
+
+Com isso, para alcançar um valor mais expressivo de recall, houve a otimização dos hiperparâmetros com o GridSearchCV, já que não há muitos valores para hiperparâmetros do algoritmo SVC. Após a realização do <i>tunning</i> de hiperparâmetros, o resultado foi: 94.18 % para o recall e precisão de 40.28 %.
+Os melhores hiperparâmetros para o classificador SVC foram os seguintes: 
 ```
-pipe = Pipeline(steps=[
-	('scaler', StandardScaler()),
-	('clf', LogisticRegression(class_weight="balanced"))
-]
+{'C': 0.01, gamma': 1, kernel': 'sigmoid'}
 ```
 
-Acima está o pipeline do melhor classificador e mudanças das características. A regressão logísitica com penalização nas classes negativas (majoritárias) com a padronização foi o que forneceu o melhor resultado. Reduzir a dimensionalidade e a realização da seleção de features, forneceram resultados piores do que o modelo acima.
+Em comparação com o modelo anterior, que era uma regressão logística, o recall máximo atingido foi de 81.15%, com precição de 42%. Abaixo está uma tabela resumindo os valores para cada modelo:
 
-Após obter o melhor modelo, foi realizado a otimização dos parâmetros com o grid search, o valor do recall não mudou muito, mas houve uma sutil melhora.
 
-O modelo com os melhores hiperparâmetros é o:
 
-```
-pipe_final = Pipeline(steps=[
-	('scaler', StandardScaler()),
-	('clf', LogisticRegression(class_weight="balanced", max_iter=100, C=0.01, solver='liblinear', penalty='l2'))
-]
-```
-O valor do recall melhorou de 80.89% para 81.15%, com precição de 42%.
 
 # Deploy
 
