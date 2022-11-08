@@ -1,7 +1,7 @@
 import tool
 import joblib
 
-modelo = joblib.load('../deploy/modelo-versao2.pkl')
+modelo = joblib.load('../../deploy/model-best.pkl')
 
 tool.scrape()
 
