@@ -197,6 +197,8 @@ Em comparação com o modelo anterior, que era uma regressão logística, o reca
 </tbody>
 </table>
 
+Com isso, foi utilizado o conjunto de teste no modelo preditivo final para esta versão. O resultado foi: 93.75 % de recall e 40.10 % de precisão.
+O resultado em comparação ao resultado da versão anterior (com a regressão logística) foi substancialmente melhor e por isso o mesmo será colocado em produção.
 
 # Deploy
 
@@ -218,5 +220,5 @@ Aguardando dados
 
 # Considerações finais
 
-O presente projeto segue em observação na fase Beta, além disso, o mesmo será supervisionado para a manutenção com o decorrer do tempo.
+O presente projeto será supervisionado para a manutenção com o decorrer do tempo.
 Para entrar em contato para tratar de bugs ou coisas do tipo, mandar email para o seguinte endereço: **r.medeiro10@gmail.com**.
