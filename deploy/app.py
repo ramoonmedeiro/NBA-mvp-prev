@@ -3,10 +3,10 @@ import numpy as np
 import joblib
 from sklearn.preprocessing import StandardScaler
 
-def previsao(MIN, RATE_WIN , PTS, AST, REB, FG, FT):
+def previsao(PTS, AST, REB, FG, FT, RATE_WIN):
 	model = joblib.load('model-best.pkl')
 
-	val = np.array([MIN, RATE_WIN, PTS, AST, REB, FG, FT]).reshape(1,-1)
+	val = np.array([PTS, AST, REB, FG, FT, RATE_WIN]).reshape(1,-1)
 	prev = model.predict_proba(val)
 
 	return {"Chances de ser MVP": prev[0][1]}
@@ -14,7 +14,6 @@ def previsao(MIN, RATE_WIN , PTS, AST, REB, FG, FT):
 demo = gr.Interface(fn=previsao,
 					inputs=["number",
 					"number",
-					"number"
 					"number",
 					"number",
 					"number",
