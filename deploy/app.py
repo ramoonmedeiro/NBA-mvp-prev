@@ -4,7 +4,7 @@ import joblib
 from sklearn.preprocessing import StandardScaler
 
 def previsao(MIN, RATE_WIN , PTS, AST, REB, FG, FT):
-	model = joblib.load('model-best.pkl.pkl')
+	model = joblib.load('model-best.pkl')
 
 	val = np.array([MIN, RATE_WIN, PTS, AST, REB, FG, FT]).reshape(1,-1)
 	prev = model.predict_proba(val)
