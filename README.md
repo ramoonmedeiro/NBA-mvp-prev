@@ -136,11 +136,10 @@ Os dados extraídos não constam com todos os anos em que houve premiação da N
 A métrica utilizada para este problema é o recall, já que estou dando mais importância para o falsos negativos (FN).
 
 
-**PS: Esta versão consta com uma nova feature (WIN%), que era difícil de extrair da internet, porém, foi realizado a extração e junção dos valores e o código pode ser encontrado na pasta /scraping**.
+**PS: Esta versão consta com a exclusão da feature (Min) e a inclusão de uma nova feature (WIN%), que era difícil de extrair da internet, porém, foi realizado a extração e junção dos valores e o código pode ser encontrado na pasta /scraping**.
 
-Os atributos selecionados para a realização da predição foram: MIN, PTS, AST, REB, FG%, FT% e WIN%, onde:
+Os atributos selecionados para a realização da predição foram: PTS, AST, REB, FG%, FT% e WIN%, onde:
 
-	- MIN : Minutos em quadra.
 	- PTS : Média de pontos por jogo.
 	- AST : Média de assistência por jogo.
 	- REB : Média de rebotes por jogo.
