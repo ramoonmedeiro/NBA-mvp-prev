@@ -144,12 +144,13 @@ A razão para retirar a feature 'Min' é em virtude da minutagem em quadra dos j
   <img src="https://user-images.githubusercontent.com/102380417/200566998-4787c97d-a48a-4157-abae-88d6dea1201d.png" width="600px" />
 </div>
 
-Apenas olhando este valor, poderia-se esperar que os minutos por jogo poderia ser uma feature importante para a classificação deste projeto, mas olhando os valores e comparando dados de 1997 até os dias de hoje com os valores de minutos por jogo para anos anteriores à 1997, chegamos ao gráfico abaixo:
-
+Apenas olhando este valor, poderia-se esperar que os minutos por jogo poderia ser uma feature importante para a classificação deste projeto, mas olhando os valores e comparando dados de 1997 até os dias de hoje com os valores de minutos por jogo para anos anteriores a 1997, chegamos ao gráfico abaixo:
 
 <div align="center">
   <img src="https://user-images.githubusercontent.com/102380417/200567109-6d7fcc23-8592-41ba-83d5-8f46ade0ba78.png" width="600px" />
 </div>
+
+Nota-se que a mediana para valores anteriores à 1997, está entre 39 a 40 minutos por jogo e cerca de 75% dos jogadores para esta época jogaram abaixo de 44 minutos por jogo. Já para valores após o ano de 1997, a mediana tanto para classes 0 e 1 estão próximas e em torno de 37 a 38 minutos por jogo. Além disso, 75% dos jogadores desta época jogaram abaixo de 39 minutos por jogo. Para se ter uma noção, um jogo da NBA possui 48 minutos do período regular, em caso de empates, existe 5 min de prorrogação e se houver empates na prorrogação mais 5 minutos são inseridos e assim por diante. Na temporada de 1961-62, Wilt Chamberlain obteve o valor médio de minutos por jogo de 48.5, ou seja, meia minuto a mais do que um jogo normal da nba, a razão para isso é somar os jminutos de prorrogação
 
 Os atributos selecionados para a realização da predição foram: PTS, AST, REB, FG%, FT% e WIN%, onde:
 
