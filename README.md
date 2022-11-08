@@ -10,7 +10,7 @@ que irá ser premiado com o MVP, poucos jogadores conseguem tal feito, mais raro
 
 # Objetivos
 
-Como visto acima, diversos fatores contribuem para um jogador da NBA ser eleito o MVP da temporada regular, portanto, este projeto visa criar um algoritmo de classificação com a intenção de prever o vencedor do mvp nas temporadas seguintes. Testarei diversos algoritmos supervisionados para 
+Como visto acima, diversos fatores contribuem para um jogador da NBA ser eleito o MVP da temporada regular, portanto, este projeto visa criar um algoritmo de classificação com a intenção de prever o vencedor do mvp nas temporadas seguintes. Testarei diversos algoritmos para o aprendizado supervisionado para 
 realizar a predição. 
 	
 Os dados foram extraídos por mim, utilizando os scripts <i>main.py</i> e <i>nbastats.py</i> de minha autoria. Os mesmos scripts já possuem um tratamento 
@@ -133,7 +133,7 @@ Olhando a Figura acima nota-se que o atributo posição é substancial, 31 jogad
 
 Os dados extraídos não constam com todos os anos em que houve premiação da NBA, pois, no site da NBA existem dados oficiais a partir da temporada 1996-1997, logo, foi possível extrair dados das últimas 26 temporadas, portanto, o dataset criado não possui muitos dados e o mesmo está desbalanceado. A ideia por trás da extração e preparação dos dados é em virtude do MVP da temporada regular estar entre os 15 maiores cestinha da temporada, com exceção para Steve Nash em 2005 e 2006. Ou seja, das últimas 26 vezes que o prêmio de MVP foi dado a um atleta, apenas dois destes não estavam entre os 15 maiores pontuadores da temporada regular, logo, achei relevante usar este fato como ponto central da minha modelagem. 
 
-A métrica utilizada para este problema é o recall, já que estou dando mais importância para o falsos negativos (FN).
+As métricas utilizadas para este problema são: recall, precisão e f1 score, com enfâse no valor do recall (para uma dada precisão) já que estou dando mais importância para o falsos negativos (FN).
 
 
 **PS: Esta versão consta com a exclusão da feature (Min) e a inclusão de uma nova feature (WIN%), que era difícil de extrair da internet, porém, foi realizado a extração e junção dos valores e o código pode ser encontrado na pasta /scraping**.
@@ -228,7 +228,12 @@ Em comparação com o modelo anterior, que era uma regressão logística, o reca
 
 É importante ressaltar a importância de utilizar e extrair as features mais importantes para o problema, apenas com a adição de uma nova feature (WIN%), que na vida real é importante para a classificação de um MVP da NBA, houve uma melhora interessante no valor do recall e precisão.
 
-Com isso, foi utilizado o conjunto de teste no modelo preditivo final para esta versão. O resultado foi: 93.75 % de recall e 40.10 % de precisão.
+Com isso, foi utilizado o conjunto de teste no modelo preditivo final para esta versão. O resultado foi:
+
+- f1 score = 71.00 %
+- recall = 85.04 %
+- precisão = 85.17 %
+
 O resultado em comparação ao resultado da versão anterior (com a regressão logística) foi substancialmente melhor e por isso o mesmo será colocado em produção. 
 
 # Deploy
