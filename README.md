@@ -144,7 +144,12 @@ A razão para retirar a feature 'Min' é em virtude da minutagem em quadra dos j
   <img src="https://user-images.githubusercontent.com/102380417/200566998-4787c97d-a48a-4157-abae-88d6dea1201d.png" width="600px" />
 </div>
 
+Apenas olhando este valor, poderia-se esperar que os minutos por jogo poderia ser uma feature importante para a classificação deste projeto, mas olhando os valores e comparando dados de 1997 até os dias de hoje com os valores de minutos por jogo para anos anteriores à 1997, chegamos ao gráfico abaixo:
 
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/102380417/200567109-6d7fcc23-8592-41ba-83d5-8f46ade0ba78.png" width="600px" />
+</div>
 
 Os atributos selecionados para a realização da predição foram: PTS, AST, REB, FG%, FT% e WIN%, onde:
 
