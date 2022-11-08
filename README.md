@@ -194,38 +194,37 @@ Os melhores hiperparâmetros para o classificador SVC foram os seguintes:
 
 Em comparação com o modelo anterior, que era uma regressão logística, o recall máximo atingido foi de 81.15%, com precição de 42% e f1 score de 55.31 %. Abaixo está uma tabela resumindo os valores para cada modelo:
 
-<table class="tg", align="center">
+
+<table class="tg">
 <thead>
   <tr>
     <th class="tg-7btt">Modelos<br></th>
     <th class="tg-7btt">Recall<br></th>
-    <th class="tg-baqh"><span style="font-weight:bold">Precisão</span></th>
+    <th class="tg-c3ow"><span style="font-weight:bold">Precisão</span></th>
+    <th class="tg-7btt">F1 Score</th>
   </tr>
 </thead>
 <tbody>
   <tr>
     <td class="tg-c3ow">LogisticRegression(class_weight="balanced", max_iter=100, C=0.01, solver='liblinear', penalty='l2')<br></td>
     <td class="tg-c3ow">81.15%<br></td>
-    <td class="tg-baqh">42.00%</td>
-  </tr>
-  <tr>
-    <td class="tg-c3ow">SVC()</td>
-    <td class="tg-c3ow">72.73%<br></td>
-    <td class="tg-baqh">21.22%</td>
+    <td class="tg-c3ow">42.00%</td>
+    <td class="tg-c3ow">55.31 %</td>
   </tr>
   <tr>
     <td class="tg-c3ow">SVC(class_weight='balanced')<br></td>
-    <td class="tg-c3ow">88.18%<br></td>
-    <td class="tg-baqh">35.67%</td>
+    <td class="tg-c3ow">92.00%<br></td>
+    <td class="tg-c3ow">73.69%</td>
+    <td class="tg-c3ow">82.02%</td>
   </tr>
   <tr>
-    <td class="tg-c3ow">SVC(class_weight='balanced', <br>'model__C': 0.01, 'model__gamma': 1, 'model__kernel': 'sigmoid')<br></td>
-    <td class="tg-c3ow">94.18%<br></td>
-    <td class="tg-baqh">40.28%</td>
+    <td class="tg-c3ow">SVC(class_weight='balanced', C = 1, gamma = 0.1, kernel = 'rbf')<br></td>
+    <td class="tg-c3ow">98.04%</td>
+    <td class="tg-c3ow">72.46%<br></td>
+    <td class="tg-c3ow">83.34%</td>
   </tr>
 </tbody>
 </table>
-
 
 É importante ressaltar a importância de utilizar e extrair as features mais importantes para o problema, apenas com a adição de uma nova feature (WIN%), que na vida real é importante para a classificação de um MVP da NBA, houve uma melhora interessante no valor do recall e precisão.
 
