@@ -250,14 +250,23 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 * Mês 1:
 
 ```
-Dia = 4/11/2022:
+**4/11/2022:**
 
-     NBA (NBA.com)                                        ML
-1 - Giannis Antetokounmpo                        1 - Donovan Mitchell 
-2 - Luka Doncic                                  2 - Giannis Antetokounmpo 
-3 - Donovan Mitchell                             3 - Luka Doncic
-4 - Ja Morant                                    4 - Nikola Jokic
-5 - Devin Booker                                 5 - Jrue Holiday
+     NBA (NBA.com)                                               ML
+1 - Giannis Antetokounmpo (MIL)                       1 - Donovan Mitchell (CLE)
+2 - Luka Doncic (DAL)                                 2 - Giannis Antetokounmpo (MIL)
+3 - Donovan Mitchell (CLE)                            3 - Luka Doncic (DAL)
+4 - Ja Morant (MEM)                                   4 - Nikola Jokic (DEN)
+5 - Devin Booker (PHX)                                5 - Jrue Holiday (MIL)
+
+
+*18/11/2022:*
+
+1 - Luka Doncic (DAL)                                 1 - Jayson Tatum (BOS)
+2 - Jayson Tatum (BOS)                                2 - Nikola Jokic (DEN)
+3 - Giannis Antetokounmpo (MIL)                       3 - Luka Doncic (DAL)
+4 - Nikola Jokic (DEN)                                4 - Giannis Antetokounmpo (MIL)
+5 - Ja Morant (MEM)                                   5 - Tyrese Haliburton (IND)
 ```
 
 
