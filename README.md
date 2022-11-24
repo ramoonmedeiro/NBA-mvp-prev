@@ -250,7 +250,7 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 * Mês 1:
 
 ```
-**4/11/2022:**
+# 4/11/2022:
 
      NBA (NBA.com)                                               ML
 1 - Giannis Antetokounmpo (MIL)                       1 - Donovan Mitchell (CLE)
@@ -260,7 +260,7 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 5 - Devin Booker (PHX)                                5 - Jrue Holiday (MIL)
 
 
-*18/11/2022:*
+# 18/11/2022:
 
 1 - Luka Doncic (DAL)                                 1 - Jayson Tatum (BOS)
 2 - Jayson Tatum (BOS)                                2 - Nikola Jokic (DEN)
