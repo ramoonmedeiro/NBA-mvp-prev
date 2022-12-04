@@ -261,12 +261,22 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 
 
 # 18/11/2022:
-
+      NBA.com                                                 ML
 1 - Luka Doncic (DAL)                                 1 - Jayson Tatum (BOS)
 2 - Jayson Tatum (BOS)                                2 - Nikola Jokic (DEN)
 3 - Giannis Antetokounmpo (MIL)                       3 - Luka Doncic (DAL)
 4 - Nikola Jokic (DEN)                                4 - Giannis Antetokounmpo (MIL)
 5 - Ja Morant (MEM)                                   5 - Tyrese Haliburton (IND)
+
+
+# 04/12/2022:
+
+     NBA.com                                                 ML
+1 - Jayson Tatum (BOS)                              1 - Jayson Tatum (BOS)
+2 - Luka Doncic (DAL)                               2 - Nikola Jokic (DEN)
+3 - Nikola Jokic (DEN)                              3 - Giannis Antetokounmpo (MIL)
+4 - Giannis Antetokounmpo (MIL)                     4 - Luka Doncic (DAL) 
+5 - Devin Booker (PHX)                              5 - Devin Booker (PHX)
 ```
 
 
