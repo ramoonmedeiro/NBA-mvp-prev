@@ -269,7 +269,7 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 5 - Ja Morant (MEM)                                   5 - Tyrese Haliburton (IND)
 ```
 
-* Mês 1:
+* Mês 2:
 
 ```
 # 04/12/2022:
