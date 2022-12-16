@@ -267,8 +267,11 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 3 - Giannis Antetokounmpo (MIL)                       3 - Luka Doncic (DAL)
 4 - Nikola Jokic (DEN)                                4 - Giannis Antetokounmpo (MIL)
 5 - Ja Morant (MEM)                                   5 - Tyrese Haliburton (IND)
+```
 
+* Mês 1:
 
+```
 # 04/12/2022:
 
      NBA.com                                                   ML
@@ -277,8 +280,22 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 3 - Nikola Jokic (DEN)                                3 - Giannis Antetokounmpo (MIL)
 4 - Giannis Antetokounmpo (MIL)                       4 - Luka Doncic (DAL) 
 5 - Devin Booker (PHX)                                5 - Devin Booker (PHX)
-```
 
+# 16/12/2022:
+
+     NBA.com                                                  ML
+1 - Jayson Tatum (BOS)                                1 - Nikola Jokic (DEN)
+2 - Giannis Antetokounmpo (MIL)                       2 - Jayson Tatum (BOS)
+3 - Nikola Jokic (DEN)                                3 - Giannis Antetokounmpo (MIL)
+4 - Ja Morant (MEM)                                   4 - Joel Embiid (PHI)
+5 - Kevin Durant (BKN)                                5 - Jaylen Brown (BOS)
+6 - Luka Doncic (DAL)                                 6 - Luka Doncic (DAL)
+7 - Zion Williamson (NOP)                             7 - Kevin Durant (BKN)
+8 - Joel Embiid (PHI)                                 8 - James Harden (BKN)
+9 - Stephen Curry (GSW)                               9 - Zion Williamson (NOP)
+10 - Anthony Davis (LAL)                              10 - Anthony Davis (LAL)
+
+```
 
 # Considerações finais
 
