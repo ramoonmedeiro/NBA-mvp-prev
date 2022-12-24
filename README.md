@@ -295,6 +295,20 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 9 - Stephen Curry (GSW)                               9 - Zion Williamson (NOP)
 10 - Anthony Davis (LAL)                              10 - Anthony Davis (LAL)
 
+# 24/12/2022:
+
+       NBA.com                                                 ML
+1 - Giannis Antetokounmpo (MIL)                       1 - Nikola Jokic (DEN)
+2 - Nikola Jokic (DEN)                                2 - Joel Embiid (PHI)
+3 - Jayson Tatum (BOS)                                3 - Giannis Antetokounmpo (MIL)
+4 - Kevin Durant (BKN)                                4 - Jayson Tatum (BOS)
+5 - Ja Morant (MEM)                                   5 - Kevin Durant (BKN)
+6 - Zion Williamson (NOP)                             6 - Luka Doncic (DAL)
+7 - Luka Doncic (DAL)                                 7 - Tyrese Haliburton (IND)
+8 - Joel Embiid (PHI)                                 8 - Zion Williamson (NOP)
+9 - Donovan Mitchell (CLE)                            9 - Donovan Mitchell (CLE)
+10 - Devin Booker (PHX)                               10 - Jaylen Brown (BOS)
+
 ```
 
 # Considerações finais
