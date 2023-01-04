@@ -311,6 +311,25 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 
 ```
 
+* Mês 3:
+
+```
+02/01/2023:
+
+         NBA.com                                              ML
+1 - Nikola Jokic (DEN)                                1 - Nikola Jokic (DEN)
+2 - Jayson Tatum (BOS)                                2 - Luka Doncic (DAL)
+3 - Luka Doncic (DAL)                                 3 - Joel Embiid (PHI)
+4 - Kevin Durant (BKN)                                4 - Giannis Antetokounmpo (MIL)
+5 - Giannis Antetokounmpo (MIL)                       5 - Kevin Durant (BKN)
+6 - Joel Embiid (PHI)                                 6 - Jayson Tatum (BOS)
+7 - Zion Williamson (NOP)                             7 - Tyrese Haliburton (IND)
+8 - Ja Morant (MEM)                                   8 - Zion Williamson (NOP)
+9 - Jaylen Brown (BOS)                                9 - Jaylen Brown (BOS)
+10 - Donovan Mitchell (CLE)                           10 - Bam Adebayo (MIA)
+
+```
+
 # Considerações finais
 
 O presente projeto será supervisionado para a manutenção com o decorrer do tempo.
