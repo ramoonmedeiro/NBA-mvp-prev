@@ -314,7 +314,7 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 * Mês 3:
 
 ```
-02/01/2023:
+# 02/01/2023:
 
          NBA.com                                              ML
 1 - Nikola Jokic (DEN)                                1 - Nikola Jokic (DEN)
@@ -327,6 +327,21 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 8 - Ja Morant (MEM)                                   8 - Zion Williamson (NOP)
 9 - Jaylen Brown (BOS)                                9 - Jaylen Brown (BOS)
 10 - Donovan Mitchell (CLE)                           10 - Bam Adebayo (MIA)
+
+
+# 13/01/2023:
+
+         NBA.com                                              ML
+1 - Nikola Jokic (DEN)                                1 - Nikola Jokic (DEN)
+2 - Luka Doncic (DAL)                                 2 - Jayson Tatum (BOS)
+3 - Jayson Tatum (BOS)                                3 - Joel Embiid (PHI)
+4 - Giannis Antetokounmpo (MIL)                       4 - Luka Doncic (DAL)
+5 - Joel Embiid (PHI)                       	      5 - Kevin Durant (BKN)
+6 - Kevin Durant (BKN)                                6 - Giannis Antetokounmpo (MIL)
+7 - Ja Morant (MEM)                                   7 - Jaylen Brown (BOS)
+8 - Donovan Mitchell (CLE)                            8 - Ja Morant (MEM)
+9 - Jaylen Brown (BOS)                                9 - Zion Williamson (NOP)
+10 - Shai Gilgeous-Alexander (OKC)                    10 - Bam Adebayo (MIA)
 
 ```
 
