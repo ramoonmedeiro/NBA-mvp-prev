@@ -343,6 +343,21 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 9 - Jaylen Brown (BOS)                                9 - Zion Williamson (NOP)
 10 - Shai Gilgeous-Alexander (OKC)                    10 - Bam Adebayo (MIA)
 
+
+
+# 20/01/2023:
+
+         NBA.com                                              ML
+1 - Nikola Jokic (DEN)                                1 - Nikola Jokic (DEN)
+2 - Jayson Tatum (BOS)                                2 - Jayson Tatum (BOS)
+3 - Joel Embiid (PHI)                                 3 - Joel Embiid (PHI)
+4 - Luka Doncic (DAL)                                 4 - Giannis Antetokounmpo (MIL)
+5 - Giannis Antetokounmpo (MIL)                       5 - Luka Doncic (DAL)
+6 - Ja Morant (MEM)                                   6 - Kevin Durant (BKN)
+7 - Kevin Durant (BKN)                                7 - James Harden (PHI)
+8 - Donovan Mitchell (CLE)                            8 - Jaylen Brown (BOS)
+9 - Shai Gilgeous-Alexander (OKC)                     9 - Ja Morant (MEM)
+10 - Jaylen Brown (BOS)                               10 - Zion Williamson (NOP)
 ```
 
 # Considerações finais
