@@ -374,10 +374,11 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 8 - James Harden (PHI)                                8 - Jaylen Brown (BOS)
 9 - Domantas Sabonis (SAC)                            9 - Bam Adebayo (MIA)
 10 - Julius Randle (NYK)                              10 - Julius Randle (NYK)
+```
 
+* Mês 4 (Fevereiro):
 
-- Mês 4 (Fevereiro):
-
+```
 # 03/02/2023:
 
 
