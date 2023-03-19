@@ -396,6 +396,26 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 10 - Ja Morant (MEM)                                  10 - Lebron James (LAL)
 ```
 
+* Mês 5 (Março):
+
+```
+
+# 18/03/2023:
+
+        NBA.com                                     ML
+1 - Joel Embiid (PHI)                      1 - Nikola Jokic (DEN)
+2 - Nikola Jokic (DEN)                     2 - Joel Embiid (PHI)
+3 - Giannis Antetokounmpo (MIL)            3 - Giannis Antetokounmpo (MIL)
+4 - Jayson Tatum (BOS)                     4 - Jayson Tatum (BOS)
+5 - Luka Doncic (DAL)                      5 - Luka Doncic (DAL)
+6 - Domantas Sabonis (SAC)                 6 - James Harden (PHI)
+7 - Julius Randle (NYK)                    7 - Jaylen Brown (BOS)              
+8 - Shai Gilgeous-Alexander (OKC)          8 - Damian Lillard (POR)                    
+9 - James Harden (PHI)                     9 - Julius Randle (NYK)            
+10 -Devin Booker (PHX)                     10 - Trae Young (ATL)
+```
+
+
 # Considerações finais
 
 O presente projeto será supervisionado para a manutenção com o decorrer do tempo.
