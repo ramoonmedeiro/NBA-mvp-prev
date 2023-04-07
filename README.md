@@ -443,7 +443,25 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 7 - Shai Gilgeous-Alexander (OKC)           7 - Anthony Davis (LAL)              
 8 - Julius Randle (NYK)                     8 - Jaylen Brown (BOS)                    
 9 - James Harden (PHI)                      9 - Damian Lillard (POR)            
-10 - Jimmy Butler                           10 - Stephen Curry (GSW)
+10 - Jimmy Butler (MIA)                     10 - Stephen Curry (GSW)
+```
+
+* Mês 6 (Abril):
+
+´´´
+# 07/04/2023:
+
+         NBA.com                                    ML
+1 - Joel Embiid (PHI)                       1 - Nikola Jokic (DEN)
+2 - Nikola Jokic (DEN)                      2 - Joel Embiid (PHI)
+3 - Giannis Antetokounmpo (MIL)             3 - Giannis Antetokounmpo (MIL)
+4 - Jayson Tatum (BOS)                      4 - Jayson Tatum (BOS)
+5 - Domantas Sabonis (SAC)                  5 - James Harden (PHI)
+6 - Luka Doncic (DAL)                       6 - Luka Doncic (DAL)
+7 - Shai Gilgeous-Alexander (OKC)           7 - Kevin Durant (PHX)              
+8 - James Harden (PHI)                      8 - Anthony Davis (LAL)                    
+9 - Julius Randle (NYK)                     9 - Jaylen Brown (BOS)            
+10 - Kevin Durant (PHX)                     10 - Bam Adebayo (MIA)
 ```
 
 
