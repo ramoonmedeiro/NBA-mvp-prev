@@ -448,7 +448,7 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 
 * Mês 6 (Abril):
 
-´´´
+```
 # 07/04/2023:
 
          NBA.com                                    ML
