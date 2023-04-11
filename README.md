@@ -479,6 +479,13 @@ A pasta "compare" possui o script que irá realizar o scraping para obter os val
 10 - Kevin Durant (PHX)                     10 - Damian Lillard (POR)
 ```
 
+# Predição Final
+
+Assim como na própria oredição da NBA, os três finalistas para a disputa para vencer o MVP da NBA, foram os mesmos preditos pela a máquina preditiva deste projeto. Algo que é um acerto imenso. Abaixo segue a chance segundo a IA deste projeto, a probabilidade de cada um vencer o prêmio de MVP:
+
+1) Jokic com 36.97 %
+2) Embiid com 33.84 %
+3) Giannis com 29.20 %
 
 # Considerações finais
 
